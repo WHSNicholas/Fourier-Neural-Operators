@@ -1,0 +1,255 @@
+# -------------------------------------------------------------------------------------------------------------------- #
+#                                               Fourier Neural Operators                                               #
+#                                          2D Poisson Equation - FNO Training                                          #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+# %% 1. Preamble ---------------------------------------------------------------------------------------------
+# File Path
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
+# Dependencies
+import torch
+import numpy as np
+from utils.data import dict_collate, Dataset
+from utils.analysis import evaluate_model_2d, model_summary
+from torch.utils.data import DataLoader, Subset
+from neuralop import Trainer, LpLoss, H1Loss
+from neuralop.training import AdamW
+from neuralop.models import FNO
+from neuralop.data.transforms import data_processors
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+
+# Parameters
+# Basic
+verbose = True                            # Verbosity
+eval = True                               # Model Evaluation
+epochs = 500                              # Epochs
+res = 2**6                                # Training Resolution
+res_eval = 2 ** 9                         # Evaluation Resolution
+filename = f"poisson_model_{res}_tiny"    # Filename
+
+batch_size = 4                            # Batch Size
+num_workers = 12                          # Parallelising
+
+# FNO Model
+i, o = 1, 1                               # Input/Output Dimension
+hidden_channels = 4                       # Dimension of Latent Representation
+n_modes = 4                               # Number of Fourier Modes
+n_layers = 4                              # Number of Layers
+d = 2                                     # Spatial Domain
+p = 2                                     # Lp Loss
+
+# Optimiser
+lr = 10**-3                               # Learning Rate
+betas = (0.9, 0.999)                      # Decay Rates for Moments
+eps = 10**-6                              # Epsilon for Stability
+weight_decay = 10**-4                     # Weight Decay
+step_size = 100                           # Learning Rate Step Decay
+gamma = 0.5                               # Learning Rate Decay
+
+# Trainer
+wandb_log = False                         # Weights and Biases Log
+eval_interval = 25                        # Evaluation Interval
+use_distributed = False                   # Distributed Runtime
+train = False                              # Train Model
+
+# Device
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
+
+
+# %% 2. Preprocessing ----------------------------------------------------------------------------------------
+# Instantiate HDF5-backed dataset
+#ull_dataset = Dataset("poisson/poisson_dataset.h5", res=res)
+data_trainval = Dataset("poisson/poisson_dataset.h5", res=res)
+data_test     = Dataset("poisson/poisson_dataset.h5", res=res_eval)
+
+# Train Val Test Split
+N_samples = len(data_trainval)
+perm = torch.randperm(N_samples)
+N_train = int(5/6 * N_samples)
+N_valid = N_test = int(1/12 * N_samples)
+
+train_idx = perm[ : N_train]
+valid_idx = perm[N_train : N_train + N_valid]
+test_idx  = perm[N_train + N_valid : ]
+
+train_data = Subset(data_trainval, train_idx)
+valid_data = Subset(data_trainval, valid_idx)
+test_data = Subset(data_test, test_idx)
+
+# DataLoaders
+train_loader = DataLoader(
+    train_data,
+    batch_size=batch_size,
+    shuffle=True,
+    num_workers=0,
+    collate_fn=dict_collate,
+)
+
+val_loader = DataLoader(
+    valid_data,
+    batch_size=batch_size,
+    shuffle=False,
+    num_workers=0,
+    collate_fn=dict_collate,
+)
+
+test_loader = DataLoader(
+    test_data,
+    batch_size=batch_size,
+    shuffle=False,
+    num_workers=0,
+    collate_fn=dict_collate,
+)
+
+
+# %% 3. Model ------------------------------------------------------------------------------------------------
+# Creating FNO Model
+model = FNO(
+    in_channels=i,
+    out_channels=o,
+    hidden_channels=hidden_channels,
+    n_modes=(n_modes, n_modes),
+    n_layers=n_layers,
+)
+
+model = model.to(device)
+data_processor = data_processors.DefaultDataProcessor().to(device)
+
+# Optimiser
+optimiser = AdamW(
+    model.parameters(),
+    lr=lr,
+    betas=betas,
+    eps=eps,
+    weight_decay=weight_decay,
+)
+
+# Learning Rate Scheduler
+scheduler = torch.optim.lr_scheduler.StepLR(
+    optimiser,
+    step_size=step_size,
+    gamma=gamma,
+)
+
+# Loss Functions
+l2_loss = LpLoss(d, p)
+h1_loss = H1Loss(d)
+linf_loss = LpLoss(d, p=float('inf'))
+
+train_loss = l2_loss
+eval_loss={'H1': h1_loss, 'L2': l2_loss, 'Linf': linf_loss}
+
+
+model_summary(verbose=verbose, title="#### FNO 2D-POISSON ####",
+              model=model, hidden_channels=hidden_channels, n_modes=n_modes, n_layers=n_layers, lr=lr,
+              weight_decay=weight_decay, betas=betas, eps=eps, step_size=step_size, gamma=gamma, train_loss=train_loss,
+              l2_loss=l2_loss, linf_loss=linf_loss, h1_loss=h1_loss, res=res, N_samples=N_samples, train_idx=train_idx,
+              valid_idx=valid_idx, test_idx=test_idx, device=device, epochs=epochs, batch_size=batch_size,
+              eval_interval=eval_interval, num_workers=num_workers)
+
+# %% 4. Training FNO -----------------------------------------------------------------------------------------
+# Training
+trainer = Trainer(
+    model=model,
+    n_epochs=epochs,
+    device=device,
+    data_processor=data_processor,
+    wandb_log=wandb_log,
+    eval_interval=eval_interval,
+    use_distributed=use_distributed,
+    verbose=verbose,
+)
+
+if train:
+    trainer.train(
+        train_loader=train_loader,
+        test_loaders={"val": val_loader},
+        optimizer=optimiser,
+        scheduler=scheduler,
+        training_loss=train_loss,
+        eval_losses=eval_loss,
+    )
+
+    torch.save(model.state_dict(), f"poisson/{filename}.pt")
+    print(f"✅ Trained model saved to 'poisson/{filename}.pt'")
+
+if not train:
+    model.load_state_dict(torch.load(f"poisson/{filename}.pt", map_location=device, weights_only=False))
+
+# %% 5. Model Evaluation ----------------------------------------------------------------------------------------
+if eval:
+    evaluate_model_2d(model, test_loader, device=device, visualise=True, data_processor=data_processor,
+                      title='FNO for 2D Poisson', filename='poisson_io.png')
+
+
+
+# # %% 6. Error Analysis ------------------------------------------------------------------------------------------
+# def fno_size(epsilon, d=2, k=1.9):
+#     """
+#     Compute the theoretical FNO network size S for a given error tolerance ε. Bound: S = C * ε^{-d/k} * log(1/ε)
+#     """
+#     return epsilon ** (-d / k) * np.log(1 / epsilon)
+#
+# # Data
+# params = np.array([1069, 11225, 66081, 533569, 2029153])
+# errors = np.array([0.1568, 0.0408, 0.0122, 0.0083, 0.0070])
+# params_thry = fno_size(errors)
+#
+# # Plotting
+# plt.figure(figsize=(8, 5))
+# plt.plot(errors, params, marker='o', linestyle='-', color='blue', label='Empirical')
+# plt.plot(errors, params_thry, marker='o', linestyle='-', color='red', label='Theory')
+# plt.yscale('log')
+# plt.xscale('log')
+#
+# # Labels and titles
+# plt.ylabel('Number of Parameters (logarithmic)')
+# plt.xlabel('Test $L^2$ Error (%)')
+# plt.title('Test $L^2$ Error vs Model Size')
+# plt.grid(True)
+# plt.legend()
+#
+# plt.tight_layout()
+# plt.show()
+# plt.savefig(f"errors.png")
+#
+# # Statistical Regression
+# x1 = -np.log(errors)
+# x2 = np.log(np.log(1/errors))
+#
+# X = np.vstack([x1, x2]).T         # Design Matrix
+# X = sm.add_constant(X)
+#
+# y = np.log(params)
+# model = sm.OLS(y, X).fit()
+# print(model.summary())
+#
+# # Theoretical Tests
+# d, k = 2, 1
+# beta1_theory = d/k
+# beta2_theory = 1.0
+#
+# # T Tests
+# test1 = model.t_test([0, 1, 0])
+# test2 = model.t_test([0, 0, 1])
+#
+# test1_thry = model.t_test((np.array([0, 1, 0]), beta1_theory))
+# test2_thry = model.t_test((np.array([0, 0, 1]), beta2_theory))
+#
+# print("Test for β1 = 0:")
+# print(test1)
+# print("\nTest for β2 = 0:")
+# print(test2)
+#
+# print("Test for β1 = d/k:")
+# print(test1_thry)
+# print("\nTest for β2 = 1:")
+# print(test2_thry)
