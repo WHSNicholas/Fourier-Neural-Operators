@@ -1,0 +1,191 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #### FNO 1D-INVISCID BURGERS ####\
+\
+## Model Architecture ##\
+\uc0\u55358 \u56812  Model type:              FNO-1D\
+\uc0\u55356 \u57243 \u65039  Hidden channels:         48\
+\uc0\u55357 \u56585  Number of Fourier modes: 24 (per dimension)\
+\uc0\u55356 \u57200  Number of layers:        8\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \uc0\u9878 \u65039  Model Size:              Massive\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+Parameter Distribution:\
+| Parameter                             | Shape        | Params   |\
+|---------------------------------------|--------------|----------|\
+| Fno Blocks Convs 0 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 0 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 1 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 1 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 2 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 2 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 3 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 3 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 4 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 4 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 5 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 5 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 6 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 6 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Convs 7 Bias               | [48, 1]      | 48       |\
+| Fno Blocks Convs 7 Weight Tensor      | [48, 48, 13] | 29,952   |\
+| Fno Blocks Fno Skips 0 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 1 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 2 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 3 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 4 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 5 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 6 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Fno Skips 7 Conv Weight    | [48, 48, 1]  | 2,304    |\
+| Fno Blocks Channel Mlp 0 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 0 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 0 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 0 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 1 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 1 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 1 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 1 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 2 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 2 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 2 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 2 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 3 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 3 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 3 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 3 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 4 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 4 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 4 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 4 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 5 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 5 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 5 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 5 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 6 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 6 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 6 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 6 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp 7 Fcs 0 Weight | [24, 48, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 7 Fcs 0 Bias   | [24]         | 24       |\
+| Fno Blocks Channel Mlp 7 Fcs 1 Weight | [48, 24, 1]  | 1,152    |\
+| Fno Blocks Channel Mlp 7 Fcs 1 Bias   | [48]         | 48       |\
+| Fno Blocks Channel Mlp Skips 0 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 1 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 2 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 3 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 4 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 5 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 6 Weight | [1, 48, 1]   | 48       |\
+| Fno Blocks Channel Mlp Skips 7 Weight | [1, 48, 1]   | 48       |\
+| Lifting Fcs 0 Weight                  | [96, 2, 1]   | 192      |\
+| Lifting Fcs 0 Bias                    | [96]         | 96       |\
+| Lifting Fcs 1 Weight                  | [48, 96, 1]  | 4,608    |\
+| Lifting Fcs 1 Bias                    | [48]         | 48       |\
+| Projection Fcs 0 Weight               | [96, 48, 1]  | 4,608    |\
+| Projection Fcs 0 Bias                 | [96]         | 96       |\
+| Projection Fcs 1 Weight               | [1, 96, 1]   | 96       |\
+| Projection Fcs 1 Bias                 | [1]          | 1        |\
+| Total Trainable Parameters            |              | 287,569  |\
+\uc0\u55356 \u57243 \u65039  Model Parameters (Including Non-Trainable): 527,185\
+\
+## Optimser Configuration ##\
+Optimizer: AdamW\
+Learning rate: 1.0e-03\
+Weight decay: 1.0e-04\
+Betas: (0.9, 0.999)\
+Epsilon: 1.0e-06\
+\
+## Learning Rate Scheduler ##\
+Type: StepLR\
+Step size: 100 epochs\
+Gamma (decay factor): 0.5\
+\
+## Loss Functions ##\
+| Phase             | Loss Type   | Metric        |\
+|-------------------|-------------|---------------|\
+| Training          | LpLoss      | L2 (relative) |\
+| Validation - L2   | LpLoss      | L2 (relative) |\
+| Validation - H1   | H1Loss      | H1 (relative) |\
+| Validation - Linf | LpLoss      | L\uc0\u8734  (relative) |\
+\
+## Data Statistics ##\
+Domain Resolution: 2,048\
+Total samples: 2,400\
+Training samples: 2,000 (83.3%)\
+Validation samples: 200 (8.3%)\
+Test samples: 200 (8.3%)\
+\
+## Hardware Configuration ##\
+Device: cuda\
+Torch version: 2.7.1+cu126\
+\
+## Training Configuration ##\
+Epochs: 500\
+Batch size: 4\
+Evaluation interval: every 25 epochs\
+Number of workers: 12\
+Training on 2000 samples\
+Testing on [200] samples         on resolutions ['val'].\
+Raw outputs of shape torch.Size([4, 1, 2048])\
+[0] time=8.63, avg_loss=0.2442, train_err=0.9767\
+Eval: val_H1=0.9759, val_L2=0.1293, val_Linf=0.4685\
+[25] time=8.40, avg_loss=0.0803, train_err=0.3212\
+Eval: val_H1=0.9639, val_L2=0.0891, val_Linf=0.5684\
+[50] time=8.41, avg_loss=0.0683, train_err=0.2733\
+Eval: val_H1=0.9377, val_L2=0.0653, val_Linf=0.5145\
+[75] time=8.41, avg_loss=0.0622, train_err=0.2486\
+Eval: val_H1=0.9463, val_L2=0.0798, val_Linf=0.5648\
+[100] time=8.36, avg_loss=0.0456, train_err=0.1824\
+Eval: val_H1=0.9364, val_L2=0.0632, val_Linf=0.5329\
+[125] time=8.27, avg_loss=0.0403, train_err=0.1613\
+Eval: val_H1=0.9466, val_L2=0.0624, val_Linf=0.5566\
+[150] time=8.54, avg_loss=0.0394, train_err=0.1578\
+Eval: val_H1=0.9246, val_L2=0.0567, val_Linf=0.5166\
+[175] time=8.45, avg_loss=0.0384, train_err=0.1537\
+Eval: val_H1=0.9625, val_L2=0.0640, val_Linf=0.5771\
+[200] time=8.32, avg_loss=0.0304, train_err=0.1217\
+Eval: val_H1=0.9571, val_L2=0.0567, val_Linf=0.5546\
+[225] time=8.39, avg_loss=0.0260, train_err=0.1041\
+Eval: val_H1=0.9319, val_L2=0.0541, val_Linf=0.5172\
+[250] time=8.35, avg_loss=0.0243, train_err=0.0974\
+Eval: val_H1=0.9469, val_L2=0.0544, val_Linf=0.5282\
+[275] time=8.39, avg_loss=0.0253, train_err=0.1014\
+Eval: val_H1=0.9381, val_L2=0.0537, val_Linf=0.5226\
+[300] time=8.34, avg_loss=0.0188, train_err=0.0753\
+Eval: val_H1=0.9584, val_L2=0.0533, val_Linf=0.5336\
+[325] time=8.23, avg_loss=0.0160, train_err=0.0641\
+Eval: val_H1=0.9541, val_L2=0.0525, val_Linf=0.5138\
+[350] time=8.41, avg_loss=0.0163, train_err=0.0651\
+Eval: val_H1=0.9694, val_L2=0.0530, val_Linf=0.5296\
+[375] time=8.50, avg_loss=0.0164, train_err=0.0654\
+Eval: val_H1=0.9847, val_L2=0.0535, val_Linf=0.5339\
+[400] time=8.39, avg_loss=0.0129, train_err=0.0515\
+Eval: val_H1=0.9668, val_L2=0.0525, val_Linf=0.5198\
+[425] time=8.24, avg_loss=0.0110, train_err=0.0439\
+Eval: val_H1=0.9879, val_L2=0.0527, val_Linf=0.5287\
+[450] time=8.42, avg_loss=0.0110, train_err=0.0440\
+Eval: val_H1=0.9950, val_L2=0.0529, val_Linf=0.5369\
+[475] time=8.30, avg_loss=0.0106, train_err=0.0425\
+Eval: val_H1=0.9850, val_L2=0.0526, val_Linf=0.5329\
+\uc0\u9989  Trained model saved to 'inviscid_burgers/inviscid_burgers_model_2048_massive.pt'\
+\
+Model diagnostics:\
+| Metric              | Value   |\
+|---------------------|---------|\
+| Test L2 Error       | 7.32%   |\
+| Test Linf Error     | 92.49%  |\
+| Test H1 Error       | 203.99% |\
+| # Parameters        | 527,185 |\
+| Avg. inference (ms) | 4.18    |\
+\
+real    69m58.099s\
+user    69m36.660s\
+sys     0m9.290s\
+}

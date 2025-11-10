@@ -1,0 +1,159 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2866
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #### FNO 1D-BURGERS ####\
+\
+## Model Architecture ##\
+\uc0\u55358 \u56812  Model type:              FNO-1D\
+\uc0\u55356 \u57243 \u65039  Hidden channels:         4\
+\uc0\u55357 \u56585  Number of Fourier modes: 4 (per dimension)\
+\uc0\u55356 \u57200  Number of layers:        4\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \uc0\u9878 \u65039  Model Size:              Tiny\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+Parameter Distribution:\
+| Parameter                             | Shape     |   Params |\
+|---------------------------------------|-----------|----------|\
+| Fno Blocks Convs 0 Bias               | [4, 1]    |        4 |\
+| Fno Blocks Convs 0 Weight Tensor      | [4, 4, 3] |       48 |\
+| Fno Blocks Convs 1 Bias               | [4, 1]    |        4 |\
+| Fno Blocks Convs 1 Weight Tensor      | [4, 4, 3] |       48 |\
+| Fno Blocks Convs 2 Bias               | [4, 1]    |        4 |\
+| Fno Blocks Convs 2 Weight Tensor      | [4, 4, 3] |       48 |\
+| Fno Blocks Convs 3 Bias               | [4, 1]    |        4 |\
+| Fno Blocks Convs 3 Weight Tensor      | [4, 4, 3] |       48 |\
+| Fno Blocks Fno Skips 0 Conv Weight    | [4, 4, 1] |       16 |\
+| Fno Blocks Fno Skips 1 Conv Weight    | [4, 4, 1] |       16 |\
+| Fno Blocks Fno Skips 2 Conv Weight    | [4, 4, 1] |       16 |\
+| Fno Blocks Fno Skips 3 Conv Weight    | [4, 4, 1] |       16 |\
+| Fno Blocks Channel Mlp 0 Fcs 0 Weight | [2, 4, 1] |        8 |\
+| Fno Blocks Channel Mlp 0 Fcs 0 Bias   | [2]       |        2 |\
+| Fno Blocks Channel Mlp 0 Fcs 1 Weight | [4, 2, 1] |        8 |\
+| Fno Blocks Channel Mlp 0 Fcs 1 Bias   | [4]       |        4 |\
+| Fno Blocks Channel Mlp 1 Fcs 0 Weight | [2, 4, 1] |        8 |\
+| Fno Blocks Channel Mlp 1 Fcs 0 Bias   | [2]       |        2 |\
+| Fno Blocks Channel Mlp 1 Fcs 1 Weight | [4, 2, 1] |        8 |\
+| Fno Blocks Channel Mlp 1 Fcs 1 Bias   | [4]       |        4 |\
+| Fno Blocks Channel Mlp 2 Fcs 0 Weight | [2, 4, 1] |        8 |\
+| Fno Blocks Channel Mlp 2 Fcs 0 Bias   | [2]       |        2 |\
+| Fno Blocks Channel Mlp 2 Fcs 1 Weight | [4, 2, 1] |        8 |\
+| Fno Blocks Channel Mlp 2 Fcs 1 Bias   | [4]       |        4 |\
+| Fno Blocks Channel Mlp 3 Fcs 0 Weight | [2, 4, 1] |        8 |\
+| Fno Blocks Channel Mlp 3 Fcs 0 Bias   | [2]       |        2 |\
+| Fno Blocks Channel Mlp 3 Fcs 1 Weight | [4, 2, 1] |        8 |\
+| Fno Blocks Channel Mlp 3 Fcs 1 Bias   | [4]       |        4 |\
+| Fno Blocks Channel Mlp Skips 0 Weight | [1, 4, 1] |        4 |\
+| Fno Blocks Channel Mlp Skips 1 Weight | [1, 4, 1] |        4 |\
+| Fno Blocks Channel Mlp Skips 2 Weight | [1, 4, 1] |        4 |\
+| Fno Blocks Channel Mlp Skips 3 Weight | [1, 4, 1] |        4 |\
+| Lifting Fcs 0 Weight                  | [8, 2, 1] |       16 |\
+| Lifting Fcs 0 Bias                    | [8]       |        8 |\
+| Lifting Fcs 1 Weight                  | [4, 8, 1] |       32 |\
+| Lifting Fcs 1 Bias                    | [4]       |        4 |\
+| Projection Fcs 0 Weight               | [8, 4, 1] |       32 |\
+| Projection Fcs 0 Bias                 | [8]       |        8 |\
+| Projection Fcs 1 Weight               | [1, 8, 1] |        8 |\
+| Projection Fcs 1 Bias                 | [1]       |        1 |\
+| Total Trainable Parameters            |           |      485 |\
+\uc0\u55356 \u57243 \u65039  Model Parameters (Including Non-Trainable): 677\
+\
+## Optimser Configuration ##\
+Optimizer: AdamW\
+Learning rate: 1.0e-03\
+Weight decay: 1.0e-04\
+Betas: (0.9, 0.999)\
+Epsilon: 1.0e-06\
+\
+## Learning Rate Scheduler ##\
+Type: StepLR\
+Step size: 100 epochs\
+Gamma (decay factor): 0.5\
+\
+## Loss Functions ##\
+| Phase             | Loss Type   | Metric        |\
+|-------------------|-------------|---------------|\
+| Training          | LpLoss      | L2 (relative) |\
+| Validation - L2   | LpLoss      | L2 (relative) |\
+| Validation - H1   | H1Loss      | H1 (relative) |\
+| Validation - Linf | LpLoss      | L\uc0\u8734  (relative) |\
+\
+## Data Statistics ##\
+Domain Resolution: 2,048\
+Total samples: 2,400\
+Training samples: 2,000 (83.3%)\
+Validation samples: 200 (8.3%)\
+Test samples: 200 (8.3%)\
+\
+## Hardware Configuration ##\
+Device: cuda\
+Torch version: 2.7.1+cu126\
+\
+## Training Configuration ##\
+Epochs: 500\
+Batch size: 4\
+Evaluation interval: every 25 epochs\
+Number of workers: 12\
+Training on 2000 samples\
+Testing on [200] samples         on resolutions ['val'].\
+Raw outputs of shape torch.Size([4, 1, 2048])\
+[0] time=5.39, avg_loss=0.4813, train_err=1.9254\
+Eval: val_H1=4.0833, val_L2=0.1781, val_Linf=0.2742\
+[25] time=5.07, avg_loss=0.0282, train_err=0.1129\
+Eval: val_H1=0.1534, val_L2=0.0399, val_Linf=0.0510\
+[50] time=5.09, avg_loss=0.0242, train_err=0.0966\
+Eval: val_H1=0.1332, val_L2=0.0403, val_Linf=0.0477\
+[75] time=5.11, avg_loss=0.0208, train_err=0.0833\
+Eval: val_H1=0.1193, val_L2=0.0177, val_Linf=0.0260\
+[100] time=5.02, avg_loss=0.0120, train_err=0.0482\
+Eval: val_H1=0.0962, val_L2=0.0139, val_Linf=0.0203\
+[125] time=5.04, avg_loss=0.0125, train_err=0.0499\
+Eval: val_H1=0.0778, val_L2=0.0168, val_Linf=0.0214\
+[150] time=5.02, avg_loss=0.0112, train_err=0.0449\
+Eval: val_H1=0.0680, val_L2=0.0140, val_Linf=0.0191\
+[175] time=5.12, avg_loss=0.0099, train_err=0.0396\
+Eval: val_H1=0.0600, val_L2=0.0080, val_Linf=0.0124\
+[200] time=5.09, avg_loss=0.0084, train_err=0.0335\
+Eval: val_H1=0.0597, val_L2=0.0208, val_Linf=0.0246\
+[225] time=5.02, avg_loss=0.0079, train_err=0.0315\
+Eval: val_H1=0.0532, val_L2=0.0068, val_Linf=0.0109\
+[250] time=4.96, avg_loss=0.0076, train_err=0.0304\
+Eval: val_H1=0.0502, val_L2=0.0077, val_Linf=0.0117\
+[275] time=5.03, avg_loss=0.0079, train_err=0.0316\
+Eval: val_H1=0.0499, val_L2=0.0145, val_Linf=0.0179\
+[300] time=5.04, avg_loss=0.0061, train_err=0.0245\
+Eval: val_H1=0.0453, val_L2=0.0061, val_Linf=0.0097\
+[325] time=5.00, avg_loss=0.0062, train_err=0.0250\
+Eval: val_H1=0.0439, val_L2=0.0059, val_Linf=0.0095\
+[350] time=5.08, avg_loss=0.0060, train_err=0.0242\
+Eval: val_H1=0.0427, val_L2=0.0062, val_Linf=0.0097\
+[375] time=5.04, avg_loss=0.0058, train_err=0.0233\
+Eval: val_H1=0.0420, val_L2=0.0064, val_Linf=0.0096\
+[400] time=5.03, avg_loss=0.0050, train_err=0.0199\
+Eval: val_H1=0.0404, val_L2=0.0054, val_Linf=0.0088\
+[425] time=5.15, avg_loss=0.0051, train_err=0.0204\
+Eval: val_H1=0.0399, val_L2=0.0052, val_Linf=0.0085\
+[450] time=5.12, avg_loss=0.0050, train_err=0.0198\
+Eval: val_H1=0.0394, val_L2=0.0052, val_Linf=0.0083\
+[475] time=5.06, avg_loss=0.0050, train_err=0.0198\
+Eval: val_H1=0.0388, val_L2=0.0056, val_Linf=0.0088\
+\uc0\u9989  Trained model saved to 'burgers/burgers_model_2048_tiny.pt'\
+\
+Model diagnostics:\
+\
+| Metric              | Value   |\
+|---------------------|---------|\
+| Test L2 Error       | 2.17%   |\
+| Test Linf Error     | 3.34%   |\
+| Test H1 Error       | 14.15%  |\
+| # Parameters        | 677     |\
+| Avg. inference (ms) | 2.12    |\
+\
+real    42m26.419s\
+user    41m2.667s\
+sys     1m11.460s\
+}
