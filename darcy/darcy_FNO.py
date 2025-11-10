@@ -22,36 +22,37 @@ from neuralop.data.transforms import data_processors
 
 # Parameters
 # Basic
-verbose = True                           # Verbosity
-eval = True                              # Model Evaluation
-epochs = 500                             # Epochs
-res = 2**8                               # Downsampling Resolution
-filename = f"darcy_model_{res}_medium2"  # Filename
+verbose = True                            # Verbosity
+eval = True                               # Model Evaluation
+epochs = 500                              # Epochs
+res = 2**8                                # Training Resolution
+res_eval = 2**8                           # Evaluation Resolution
+filename = f"darcy_model_{res}_medium"    # Filename
 
-batch_size = 4                           # Batch Size
-num_workers = 12                         # Parallelising
+batch_size = 4                            # Batch Size
+num_workers = 12                          # Parallelising
 
 # FNO Model
-i, o = 2, 1                              # Input/Output Dimension
-hidden_channels = 12                     # Dimension of Latent Representation
-n_modes = 8                              # Number of Fourier Modes
-n_layers = 12                            # Number of Layers
-d = 2                                    # Spatial Domain
-p = 2                                    # Lp Loss
+i, o = 2, 1                               # Input/Output Dimension
+hidden_channels = 16                      # Dimension of Latent Representation
+n_modes = 8                               # Number of Fourier Modes
+n_layers = 6                              # Number of Layers
+d = 2                                     # Spatial Domain
+p = 2                                     # Lp Loss
 
 # Optimiser
-lr = 10**-3                              # Learning Rate
-betas = (0.9, 0.999)                     # Decay Rates for Moments
-eps = 10**-6                             # Epsilon for Stability
-weight_decay = 10**-4                    # Weight Decay
-step_size = 100                          # Learning Rate Step Decay
-gamma = 0.5                              # Learning Rate Decay
+lr = 10**-3                               # Learning Rate
+betas = (0.9, 0.999)                      # Decay Rates for Moments
+eps = 10**-6                              # Epsilon for Stability
+weight_decay = 10**-4                     # Weight Decay
+step_size = 100                           # Learning Rate Step Decay
+gamma = 0.5                               # Learning Rate Decay
 
 # Trainer
-wandb_log = False                        # Weights and Biases Log
-eval_interval = 25                       # Evaluation Interval
-use_distributed = False                  # Distributed Runtime
-train = True                             # Train Model
+wandb_log = False                         # Weights and Biases Log
+eval_interval = 25                        # Evaluation Interval
+use_distributed = False                   # Distributed Runtime
+train = False                             # Train Model
 
 # Device
 if torch.cuda.is_available():
@@ -62,10 +63,11 @@ else:
 
 # %% 3. Preprocessing ----------------------------------------------------------------------------------------
 # Instantiate HDF5-backed dataset
-full_dataset = Dataset("darcy/darcy_dataset.h5", res=res)
+data_trainval = Dataset("darcy/darcy_dataset.h5", res=res)
+data_test     = Dataset("darcy/darcy_dataset.h5", res=res_eval)
 
 # Train Val Test Split
-N_samples = len(full_dataset)
+N_samples = len(data_trainval)
 perm = torch.randperm(N_samples)
 N_train = int(5/6 * N_samples)
 N_valid = N_test = int(1/12 * N_samples)
@@ -74,9 +76,9 @@ train_idx = perm[ : N_train]
 valid_idx   = perm[N_train : N_train + N_valid]
 test_idx  = perm[N_train + N_valid : ]
 
-train_data = Subset(full_dataset, train_idx)
-valid_data = Subset(full_dataset, valid_idx)
-test_data = Subset(full_dataset, test_idx)
+train_data = Subset(data_trainval, train_idx)
+valid_data = Subset(data_trainval, valid_idx)
+test_data = Subset(data_test, test_idx)
 
 # DataLoaders
 train_loader = DataLoader(

@@ -28,18 +28,18 @@ import statsmodels.api as sm
 verbose = True                            # Verbosity
 eval = True                               # Model Evaluation
 epochs = 500                              # Epochs
-res = 2**6                                # Training Resolution
-res_eval = 2 ** 9                         # Evaluation Resolution
-filename = f"poisson_model_{res}_tiny"    # Filename
+res = 2**4                                # Training Resolution
+res_eval = 2**9                           # Evaluation Resolution
+filename = f"poisson_model_{res}_medium"  # Filename
 
 batch_size = 4                            # Batch Size
 num_workers = 12                          # Parallelising
 
 # FNO Model
 i, o = 1, 1                               # Input/Output Dimension
-hidden_channels = 4                       # Dimension of Latent Representation
-n_modes = 4                               # Number of Fourier Modes
-n_layers = 4                              # Number of Layers
+hidden_channels = 16                       # Dimension of Latent Representation
+n_modes = 8                               # Number of Fourier Modes
+n_layers = 6                              # Number of Layers
 d = 2                                     # Spatial Domain
 p = 2                                     # Lp Loss
 
@@ -55,7 +55,7 @@ gamma = 0.5                               # Learning Rate Decay
 wandb_log = False                         # Weights and Biases Log
 eval_interval = 25                        # Evaluation Interval
 use_distributed = False                   # Distributed Runtime
-train = False                              # Train Model
+train = False                             # Train Model
 
 # Device
 if torch.cuda.is_available():
@@ -66,7 +66,6 @@ else:
 
 # %% 2. Preprocessing ----------------------------------------------------------------------------------------
 # Instantiate HDF5-backed dataset
-#ull_dataset = Dataset("poisson/poisson_dataset.h5", res=res)
 data_trainval = Dataset("poisson/poisson_dataset.h5", res=res)
 data_test     = Dataset("poisson/poisson_dataset.h5", res=res_eval)
 
@@ -188,68 +187,3 @@ if not train:
 if eval:
     evaluate_model_2d(model, test_loader, device=device, visualise=True, data_processor=data_processor,
                       title='FNO for 2D Poisson', filename='poisson_io.png')
-
-
-
-# # %% 6. Error Analysis ------------------------------------------------------------------------------------------
-# def fno_size(epsilon, d=2, k=1.9):
-#     """
-#     Compute the theoretical FNO network size S for a given error tolerance ε. Bound: S = C * ε^{-d/k} * log(1/ε)
-#     """
-#     return epsilon ** (-d / k) * np.log(1 / epsilon)
-#
-# # Data
-# params = np.array([1069, 11225, 66081, 533569, 2029153])
-# errors = np.array([0.1568, 0.0408, 0.0122, 0.0083, 0.0070])
-# params_thry = fno_size(errors)
-#
-# # Plotting
-# plt.figure(figsize=(8, 5))
-# plt.plot(errors, params, marker='o', linestyle='-', color='blue', label='Empirical')
-# plt.plot(errors, params_thry, marker='o', linestyle='-', color='red', label='Theory')
-# plt.yscale('log')
-# plt.xscale('log')
-#
-# # Labels and titles
-# plt.ylabel('Number of Parameters (logarithmic)')
-# plt.xlabel('Test $L^2$ Error (%)')
-# plt.title('Test $L^2$ Error vs Model Size')
-# plt.grid(True)
-# plt.legend()
-#
-# plt.tight_layout()
-# plt.show()
-# plt.savefig(f"errors.png")
-#
-# # Statistical Regression
-# x1 = -np.log(errors)
-# x2 = np.log(np.log(1/errors))
-#
-# X = np.vstack([x1, x2]).T         # Design Matrix
-# X = sm.add_constant(X)
-#
-# y = np.log(params)
-# model = sm.OLS(y, X).fit()
-# print(model.summary())
-#
-# # Theoretical Tests
-# d, k = 2, 1
-# beta1_theory = d/k
-# beta2_theory = 1.0
-#
-# # T Tests
-# test1 = model.t_test([0, 1, 0])
-# test2 = model.t_test([0, 0, 1])
-#
-# test1_thry = model.t_test((np.array([0, 1, 0]), beta1_theory))
-# test2_thry = model.t_test((np.array([0, 0, 1]), beta2_theory))
-#
-# print("Test for β1 = 0:")
-# print(test1)
-# print("\nTest for β2 = 0:")
-# print(test2)
-#
-# print("Test for β1 = d/k:")
-# print(test1_thry)
-# print("\nTest for β2 = 1:")
-# print(test2_thry)

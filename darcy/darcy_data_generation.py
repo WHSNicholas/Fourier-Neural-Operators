@@ -27,7 +27,7 @@ rank = comm.rank
 size = comm.size
 
 # Parameters
-res = 2**9                         # Domain (grid) resolution
+res = 2**8                         # Domain (grid) resolution
 batch_size = 10                    # Batch Size
 N_samples = 12*batch_size*20       # Number of input/output datapoints generated
 verbose = True                     # Verbosity
@@ -41,8 +41,8 @@ petsc_options = {
 
 # %% 2. FEM Setup --------------------------------------------------------------------------------------------
 # Defining Mesh and Function Space
-domain = mesh.create_unit_square(self, res, res, mesh.CellType.triangle)    # Triangular elements on [0,1]^2
-V = functionspace(domain, ('Lagrange', 1))                          # Function space with Lagrange elements
+domain = mesh.create_unit_square(self, res, res, mesh.CellType.quadrilateral)    # Rectangular elements on [0,1]^2
+V = functionspace(domain, ('Q', 2))                          # Function space with Lagrange elements
 
 t_dim = domain.topology.dim         # Topological Dimension
 f_dim = domain.topology.dim - 1     # Facet Dimension
@@ -80,7 +80,7 @@ for i in range(rank, N_samples, size):
     f_expr = sample_field_2d(
         var=3,
         len_scale=1/3,
-        smoothness=1,
+        smoothness=2,
         type='matern',
     )
     f = fem.Function(V)
@@ -88,9 +88,9 @@ for i in range(rank, N_samples, size):
 
     # Generate Diffusion Coefficient
     a_expr = sample_field_2d(
-        var=2,
-        len_scale=1/2,
-        smoothness=1.5,
+        var=1,
+        len_scale=1/3,
+        smoothness=2,
         type='matern',
     )
     a = fem.Function(V)

@@ -1,17 +1,21 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2862
+{\rtf1\ansi\ansicpg1252\cocoartf2866
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 #### FNO 2D-DARCY ####\
 \
 ## Model Architecture ##\
-\uc0\u55358 \u56812  Model type: FNO-2D\
-\uc0\u55356 \u57243 \u65039  Hidden channels: 32\
+\uc0\u55358 \u56812  Model type:              FNO-2D\
+\uc0\u55356 \u57243 \u65039  Hidden channels:         32\
 \uc0\u55357 \u56585  Number of Fourier modes: 12 (per dimension)\
-\uc0\u55356 \u57200  Number of layers: 6\
+\uc0\u55356 \u57200  Number of layers:        6\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \uc0\u9878 \u65039  Model Size:              Large\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \
 Parameter Distribution:\
 | Parameter                             | Shape           | Params   |\
@@ -114,59 +118,59 @@ Number of workers: 12\
 Training on 2000 samples\
 Testing on [200] samples         on resolutions ['val'].\
 Raw outputs of shape torch.Size([4, 1, 256, 256])\
-[0] time=42.34, avg_loss=0.9583, train_err=3.8334\
-Eval: val_H1=1.2627, val_L2=0.8799, val_Linf=0.9281\
-[25] time=40.57, avg_loss=0.1022, train_err=0.4090\
-Eval: val_H1=0.3232, val_L2=0.0991, val_Linf=0.1260\
-[50] time=40.52, avg_loss=0.0710, train_err=0.2840\
-Eval: val_H1=0.2423, val_L2=0.0774, val_Linf=0.0948\
-[75] time=40.55, avg_loss=0.0557, train_err=0.2230\
-Eval: val_H1=0.2021, val_L2=0.0598, val_Linf=0.0706\
-[100] time=40.53, avg_loss=0.0250, train_err=0.0999\
-Eval: val_H1=0.1604, val_L2=0.0213, val_Linf=0.0403\
-[125] time=40.55, avg_loss=0.0254, train_err=0.1016\
-Eval: val_H1=0.1431, val_L2=0.0259, val_Linf=0.0387\
-[150] time=40.57, avg_loss=0.0228, train_err=0.0912\
-Eval: val_H1=0.1352, val_L2=0.0247, val_Linf=0.0379\
-[175] time=40.56, avg_loss=0.0217, train_err=0.0869\
-Eval: val_H1=0.1282, val_L2=0.0205, val_Linf=0.0344\
-[200] time=40.49, avg_loss=0.0122, train_err=0.0487\
-Eval: val_H1=0.1198, val_L2=0.0116, val_Linf=0.0281\
-[225] time=40.53, avg_loss=0.0116, train_err=0.0466\
-Eval: val_H1=0.1132, val_L2=0.0193, val_Linf=0.0298\
-[250] time=40.75, avg_loss=0.0122, train_err=0.0490\
-Eval: val_H1=0.1080, val_L2=0.0100, val_Linf=0.0245\
-[275] time=40.55, avg_loss=0.0119, train_err=0.0477\
-Eval: val_H1=0.1052, val_L2=0.0123, val_Linf=0.0234\
-[300] time=40.57, avg_loss=0.0071, train_err=0.0282\
-Eval: val_H1=0.1006, val_L2=0.0063, val_Linf=0.0226\
-[325] time=40.55, avg_loss=0.0069, train_err=0.0277\
-Eval: val_H1=0.0974, val_L2=0.0071, val_Linf=0.0221\
-[350] time=40.57, avg_loss=0.0065, train_err=0.0261\
-Eval: val_H1=0.0945, val_L2=0.0061, val_Linf=0.0211\
-[375] time=40.54, avg_loss=0.0069, train_err=0.0275\
-Eval: val_H1=0.0922, val_L2=0.0071, val_Linf=0.0216\
-[400] time=40.56, avg_loss=0.0046, train_err=0.0183\
-Eval: val_H1=0.0898, val_L2=0.0045, val_Linf=0.0195\
-[425] time=40.54, avg_loss=0.0047, train_err=0.0188\
-Eval: val_H1=0.0878, val_L2=0.0047, val_Linf=0.0198\
-[450] time=40.58, avg_loss=0.0045, train_err=0.0181\
-Eval: val_H1=0.0861, val_L2=0.0048, val_Linf=0.0194\
-[475] time=40.58, avg_loss=0.0047, train_err=0.0186\
-Eval: val_H1=0.0845, val_L2=0.0045, val_Linf=0.0190\
-\uc0\u9989  Trained model saved to 'darcy/darcy_model_256.pt'\
+[0] time=42.08, avg_loss=0.6922, train_err=2.7687\
+Eval: val_H1=0.7499, val_L2=0.5346, val_Linf=0.5693\
+[25] time=41.25, avg_loss=0.0866, train_err=0.3465\
+Eval: val_H1=0.2868, val_L2=0.0872, val_Linf=0.1197\
+[50] time=41.26, avg_loss=0.0620, train_err=0.2481\
+Eval: val_H1=0.1920, val_L2=0.0683, val_Linf=0.0782\
+[75] time=41.30, avg_loss=0.0555, train_err=0.2221\
+Eval: val_H1=0.1643, val_L2=0.1207, val_Linf=0.0981\
+[100] time=41.28, avg_loss=0.0286, train_err=0.1145\
+Eval: val_H1=0.1320, val_L2=0.0251, val_Linf=0.0445\
+[125] time=41.29, avg_loss=0.0274, train_err=0.1094\
+Eval: val_H1=0.1174, val_L2=0.0263, val_Linf=0.0388\
+[150] time=41.36, avg_loss=0.0254, train_err=0.1016\
+Eval: val_H1=0.1109, val_L2=0.0256, val_Linf=0.0372\
+[175] time=41.21, avg_loss=0.0222, train_err=0.0887\
+Eval: val_H1=0.1046, val_L2=0.0210, val_Linf=0.0326\
+[200] time=41.27, avg_loss=0.0137, train_err=0.0547\
+Eval: val_H1=0.0974, val_L2=0.0116, val_Linf=0.0288\
+[225] time=41.28, avg_loss=0.0133, train_err=0.0530\
+Eval: val_H1=0.0921, val_L2=0.0126, val_Linf=0.0259\
+[250] time=41.29, avg_loss=0.0130, train_err=0.0522\
+Eval: val_H1=0.0892, val_L2=0.0182, val_Linf=0.0271\
+[275] time=41.23, avg_loss=0.0127, train_err=0.0509\
+Eval: val_H1=0.0852, val_L2=0.0119, val_Linf=0.0242\
+[300] time=41.23, avg_loss=0.0081, train_err=0.0322\
+Eval: val_H1=0.0817, val_L2=0.0085, val_Linf=0.0225\
+[325] time=41.24, avg_loss=0.0072, train_err=0.0286\
+Eval: val_H1=0.0788, val_L2=0.0066, val_Linf=0.0217\
+[350] time=41.29, avg_loss=0.0075, train_err=0.0301\
+Eval: val_H1=0.0768, val_L2=0.0071, val_Linf=0.0217\
+[375] time=41.30, avg_loss=0.0070, train_err=0.0280\
+Eval: val_H1=0.0746, val_L2=0.0065, val_Linf=0.0202\
+[400] time=41.30, avg_loss=0.0052, train_err=0.0207\
+Eval: val_H1=0.0727, val_L2=0.0049, val_Linf=0.0202\
+[425] time=41.24, avg_loss=0.0051, train_err=0.0204\
+Eval: val_H1=0.0711, val_L2=0.0057, val_Linf=0.0196\
+[450] time=41.23, avg_loss=0.0048, train_err=0.0193\
+Eval: val_H1=0.0696, val_L2=0.0054, val_Linf=0.0192\
+[475] time=41.47, avg_loss=0.0049, train_err=0.0195\
+Eval: val_H1=0.0683, val_L2=0.0051, val_Linf=0.0187\
+\uc0\u9989  Trained model saved to 'darcy/darcy_model_256_large.pt'\
 \
 Model diagnostics:\
 \
 | Metric              | Value     |\
 |---------------------|-----------|\
-| Test L2 Error       | 1.63%     |\
-| Test Linf Error     | 7.01%     |\
-| Test H1 Error       | 32.19%    |\
+| Test L2 Error       | 2.13%     |\
+| Test Linf Error     | 7.35%     |\
+| Test H1 Error       | 26.98%    |\
 | # Parameters        | 1,049,729 |\
-| Avg. inference (ms) | 3.91      |\
+| Avg. inference (ms) | 3.77      |\
 \
-real    338m33.849s\
-user    676m56.280s\
-sys     9m49.015s\
+real    344m37.697s\
+user    696m26.856s\
+sys     10m14.387s\
 }

@@ -1,18 +1,23 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2865
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\rtf1\ansi\ansicpg1252\cocoartf2866
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;\f1\fnil\fcharset0 AppleColorEmoji;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 #### FNO 2D-DARCY ####\
 \
 ## Model Architecture ##\
-\uc0\u55358 \u56812  Model type: FNO-2D\
-\uc0\u55356 \u57243 \u65039  Hidden channels: 4\
+\uc0\u55358 \u56812  Model type:              FNO-2D\
+\uc0\u55356 \u57243 \u65039  Hidden channels:         4\
 \uc0\u55357 \u56585  Number of Fourier modes: 4 (per dimension)\
-\uc0\u55356 \u57200  Number of layers: 4\
-\
+\uc0\u55356 \u57200  Number of layers:        4\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1 \cf2 \uc0\u9878 \u65039 
+\f0  Model Size:              Tiny\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 Parameter Distribution:\
 | Parameter                             | Shape        | Params   |\
 |---------------------------------------|--------------|----------|\
@@ -98,59 +103,59 @@ Number of workers: 12\
 Training on 2000 samples\
 Testing on [200] samples         on resolutions ['val'].\
 Raw outputs of shape torch.Size([4, 1, 256, 256])\
-[0] time=15.07, avg_loss=1.0176, train_err=4.0702\
-Eval: val_H1=1.2200, val_L2=0.9511, val_Linf=0.9683\
-[25] time=10.69, avg_loss=0.7966, train_err=3.1866\
-Eval: val_H1=1.0487, val_L2=0.8198, val_Linf=0.8747\
-[50] time=10.60, avg_loss=0.6190, train_err=2.4760\
-Eval: val_H1=0.8936, val_L2=0.6619, val_Linf=0.7381\
-[75] time=10.48, avg_loss=0.5072, train_err=2.0290\
-Eval: val_H1=0.8060, val_L2=0.5139, val_Linf=0.5977\
-[100] time=10.60, avg_loss=0.4380, train_err=1.7521\
-Eval: val_H1=0.7761, val_L2=0.4609, val_Linf=0.5523\
-[125] time=10.54, avg_loss=0.4180, train_err=1.6721\
-Eval: val_H1=0.7676, val_L2=0.4444, val_Linf=0.5462\
-[150] time=10.50, avg_loss=0.4052, train_err=1.6210\
-Eval: val_H1=0.7632, val_L2=0.4350, val_Linf=0.5326\
-[175] time=10.56, avg_loss=0.3932, train_err=1.5726\
-Eval: val_H1=0.7579, val_L2=0.4288, val_Linf=0.5187\
-[200] time=10.46, avg_loss=0.3783, train_err=1.5132\
-Eval: val_H1=0.7509, val_L2=0.4053, val_Linf=0.5080\
-[225] time=10.49, avg_loss=0.3767, train_err=1.5070\
-Eval: val_H1=0.7483, val_L2=0.4000, val_Linf=0.4994\
-[250] time=10.57, avg_loss=0.3712, train_err=1.4850\
-Eval: val_H1=0.7472, val_L2=0.3997, val_Linf=0.5014\
-[275] time=10.51, avg_loss=0.3670, train_err=1.4679\
-Eval: val_H1=0.7423, val_L2=0.3883, val_Linf=0.4917\
-[300] time=10.53, avg_loss=0.3596, train_err=1.4386\
-Eval: val_H1=0.7361, val_L2=0.3840, val_Linf=0.4838\
-[325] time=10.65, avg_loss=0.3576, train_err=1.4305\
-Eval: val_H1=0.7361, val_L2=0.3816, val_Linf=0.4827\
-[350] time=10.52, avg_loss=0.3552, train_err=1.4206\
-Eval: val_H1=0.7327, val_L2=0.3783, val_Linf=0.4771\
-[375] time=10.49, avg_loss=0.3533, train_err=1.4133\
-Eval: val_H1=0.7299, val_L2=0.3759, val_Linf=0.4759\
-[400] time=10.51, avg_loss=0.3493, train_err=1.3973\
-Eval: val_H1=0.7284, val_L2=0.3721, val_Linf=0.4722\
-[425] time=10.45, avg_loss=0.3480, train_err=1.3922\
-Eval: val_H1=0.7280, val_L2=0.3706, val_Linf=0.4711\
-[450] time=10.50, avg_loss=0.3466, train_err=1.3864\
-Eval: val_H1=0.7263, val_L2=0.3695, val_Linf=0.4710\
-[475] time=10.40, avg_loss=0.3452, train_err=1.3809\
-Eval: val_H1=0.7257, val_L2=0.3674, val_Linf=0.4666\
+[0] time=12.66, avg_loss=1.5114, train_err=6.0455\
+Eval: val_H1=1.6639, val_L2=0.7106, val_Linf=0.7459\
+[25] time=11.28, avg_loss=0.5307, train_err=2.1227\
+Eval: val_H1=1.0005, val_L2=0.5225, val_Linf=0.6068\
+[50] time=11.22, avg_loss=0.4886, train_err=1.9544\
+Eval: val_H1=0.8031, val_L2=0.4902, val_Linf=0.5718\
+[75] time=11.20, avg_loss=0.4769, train_err=1.9077\
+Eval: val_H1=0.7456, val_L2=0.5703, val_Linf=0.6045\
+[100] time=11.27, avg_loss=0.4552, train_err=1.8208\
+Eval: val_H1=0.7473, val_L2=0.4790, val_Linf=0.5584\
+[125] time=11.20, avg_loss=0.4522, train_err=1.8089\
+Eval: val_H1=0.7359, val_L2=0.4713, val_Linf=0.5534\
+[150] time=11.17, avg_loss=0.4475, train_err=1.7899\
+Eval: val_H1=0.7403, val_L2=0.4794, val_Linf=0.5519\
+[175] time=11.22, avg_loss=0.4362, train_err=1.7447\
+Eval: val_H1=0.7174, val_L2=0.4855, val_Linf=0.5568\
+[200] time=11.22, avg_loss=0.4261, train_err=1.7045\
+Eval: val_H1=0.7127, val_L2=0.4529, val_Linf=0.5423\
+[225] time=11.17, avg_loss=0.4204, train_err=1.6818\
+Eval: val_H1=0.7121, val_L2=0.4461, val_Linf=0.5358\
+[250] time=11.29, avg_loss=0.4151, train_err=1.6604\
+Eval: val_H1=0.7052, val_L2=0.4406, val_Linf=0.5339\
+[275] time=11.12, avg_loss=0.4112, train_err=1.6446\
+Eval: val_H1=0.7071, val_L2=0.4377, val_Linf=0.5281\
+[300] time=11.21, avg_loss=0.4047, train_err=1.6189\
+Eval: val_H1=0.7003, val_L2=0.4360, val_Linf=0.5266\
+[325] time=11.21, avg_loss=0.4022, train_err=1.6089\
+Eval: val_H1=0.7035, val_L2=0.4292, val_Linf=0.5222\
+[350] time=11.18, avg_loss=0.4000, train_err=1.6001\
+Eval: val_H1=0.6998, val_L2=0.4276, val_Linf=0.5192\
+[375] time=11.22, avg_loss=0.3986, train_err=1.5943\
+Eval: val_H1=0.6986, val_L2=0.4300, val_Linf=0.5220\
+[400] time=11.27, avg_loss=0.3952, train_err=1.5806\
+Eval: val_H1=0.6982, val_L2=0.4222, val_Linf=0.5161\
+[425] time=11.34, avg_loss=0.3945, train_err=1.5780\
+Eval: val_H1=0.6954, val_L2=0.4208, val_Linf=0.5162\
+[450] time=11.34, avg_loss=0.3937, train_err=1.5748\
+Eval: val_H1=0.6943, val_L2=0.4220, val_Linf=0.5163\
+[475] time=11.19, avg_loss=0.3929, train_err=1.5716\
+Eval: val_H1=0.6956, val_L2=0.4192, val_Linf=0.5141\
 \uc0\u9989  Trained model saved to 'darcy/darcy_model_256_tiny.pt'\
 \
 Model diagnostics:\
 \
 | Metric              | Value   |\
 |---------------------|---------|\
-| Test L2 Error       | 140.88% |\
-| Test Linf Error     | 182.19% |\
-| Test H1 Error       | 289.71% |\
+| Test L2 Error       | 162.14% |\
+| Test Linf Error     | 195.22% |\
+| Test H1 Error       | 273.04% |\
 | # Parameters        | 1,845   |\
-| Avg. inference (ms) | 2.89    |\
+| Avg. inference (ms) | 2.96    |\
 \
-real    88m7.118s\
-user    423m19.158s\
-sys     9m54.126s\
+real    93m58.555s\
+user    428m59.456s\
+sys     10m19.980s\
 }

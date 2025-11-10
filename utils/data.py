@@ -69,7 +69,7 @@ class Dataset(Dataset):
 
         # Downsampling
         if self.res is not None:
-            if inp_t.ndim == 3 and inp_t.shape[-2] == 1:  # 1D data
+            if inp_t.ndim == 2:  # 1D data
                 inp_t = F.interpolate(inp_t.unsqueeze(0), size=self.res, mode='linear', align_corners=False)[0]
                 out_t = F.interpolate(out_t.unsqueeze(0), size=self.res, mode='linear', align_corners=False)[0]
 
@@ -284,9 +284,6 @@ def sample_field_2d(
 
         return f
 
-
-
-        return f
 
     # Exponential GRF
     def _exp():

@@ -72,8 +72,6 @@ def _use_cmu_tex():
         print('mathtext')
 
 
-
-
 def tensor_to_numpy(field):
     """
     Convert a PyTorch tensor or NumPy array to a 2D NumPy array by removing any leading channel dimensions.
@@ -93,7 +91,6 @@ def tensor_to_numpy(field):
 
     # Strip Leading Channel Dimension
     return field.squeeze()
-
 
 
 def visualise_in_out(loader, data_processor, model, device, title, filename, n_samples, dpi=300):
@@ -181,51 +178,51 @@ def visualise_in_out(loader, data_processor, model, device, title, filename, n_s
                     ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + ch + 1)
                     im = ax.imshow(x[ch], vmin=min_in[ch], vmax=max_in[ch])
                     if row_i == 0:
-                        ax.set_title(f'Input Ch{ch}', fontsize=16)
+                        ax.set_title(f'Input Ch{ch}', fontsize=20)
                     ax.set_xticks([])
                     ax.set_yticks([])
                     # per-axes colorbar on the right
                     cbar = fig.colorbar(im, ax=ax, location='right', fraction=0.03, pad=0.02)
-                    cbar.ax.tick_params(labelsize=12)
+                    cbar.ax.tick_params(labelsize=14)
             else:  # single-channel
                 ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + 1)
                 im = ax.imshow(x, vmin=min_in[0], vmax=max_in[0])
                 if row_i == 0:
-                    ax.set_title('Input', fontsize=16)
+                    ax.set_title('Input', fontsize=20)
                 ax.set_xticks([])
                 ax.set_yticks([])
                 cbar = fig.colorbar(im, ax=ax, location='right', fraction=0.03, pad=0.02)
-                cbar.ax.tick_params(labelsize=12)
+                cbar.ax.tick_params(labelsize=14)
 
             # Ground Truth
             ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + n_channels + 1)
             im = ax.imshow(y, vmin=min_y, vmax=max_y)
             if row_i == 0:
-                ax.set_title('Ground Truth', fontsize=16)
+                ax.set_title('Ground Truth', fontsize=20)
             ax.set_xticks([])
             ax.set_yticks([])
             cbar = fig.colorbar(im, ax=ax, location='right', fraction=0.03, pad=0.02)
-            cbar.ax.tick_params(labelsize=12)
+            cbar.ax.tick_params(labelsize=14)
 
             # Prediction
             ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + n_channels + 2)
             im = ax.imshow(out, vmin=min_out, vmax=max_out)
             if row_i == 0:
-                ax.set_title('Prediction', fontsize=16)
+                ax.set_title('Prediction', fontsize=20)
             ax.set_xticks([])
             ax.set_yticks([])
             cbar = fig.colorbar(im, ax=ax, location='right', fraction=0.03, pad=0.02)
-            cbar.ax.tick_params(labelsize=12)
+            cbar.ax.tick_params(labelsize=14)
 
             # Error (symmetric, diverging)
             ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + n_channels + 3)
             im = ax.imshow(err, cmap='RdBu_r', vmin=-max_abs_err, vmax=max_abs_err)
             if row_i == 0:
-                ax.set_title('Error', fontsize=16)
+                ax.set_title('Error', fontsize=20)
             ax.set_xticks([])
             ax.set_yticks([])
             cbar = fig.colorbar(im, ax=ax, location='right', fraction=0.03, pad=0.02)
-            cbar.ax.tick_params(labelsize=12)
+            cbar.ax.tick_params(labelsize=14)
 
         plt.savefig(filename, dpi=dpi)
         return
@@ -251,30 +248,39 @@ def visualise_in_out(loader, data_processor, model, device, title, filename, n_s
 
         # Input
         ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + 1)
-        if x.ndim == 2:  # multi-channel
+        if x.ndim == 2:
             for ch in range(x.shape[0]):
                 ax.plot(x_axis, x[ch], label=f'ch{ch}')
-            if row_i == 0: ax.set_title('Input')
+            if row_i == 0:
+                ax.set_title('Input', fontsize=20)
             if x.shape[0] > 1 and row_i == 0: ax.legend()
         else:
             ax.plot(x_axis, x)
-            if row_i == 0: ax.set_title('Input')
+            if row_i == 0:
+                ax.set_title('Input', fontsize=20)
+        ax.grid(True, which="both", linestyle=":", linewidth=0.7, alpha=0.6)
 
         # Ground Truth
         ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + 2)
         ax.plot(x_axis, y)
-        if row_i == 0: ax.set_title('Ground Truth')
+        if row_i == 0:
+            ax.set_title('Ground Truth', fontsize=20)
+        ax.grid(True, which="both", linestyle=":", linewidth=0.7, alpha=0.6)
 
         # Prediction
         ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + 3)
         ax.plot(x_axis, out)
-        if row_i == 0: ax.set_title('Prediction')
+        if row_i == 0:
+            ax.set_title('Prediction', fontsize=20)
+        ax.grid(True, which="both", linestyle=":", linewidth=0.7, alpha=0.6)
 
         # Error
         ax = fig.add_subplot(len(indices), n_cols, row_i * n_cols + 4)
         ax.plot(x_axis, err)
         ax.axhline(0.0, linestyle='--', linewidth=0.8)
-        if row_i == 0: ax.set_title('Error')
+        if row_i == 0:
+            ax.set_title('Error', fontsize=20)
+        ax.grid(True, which="both", linestyle=":", linewidth=0.7, alpha=0.6)
 
     plt.savefig(filename, dpi=dpi)
 
@@ -307,15 +313,15 @@ def surface_3d(field2d, *, x=None, y=None, title="3-D surface"):
         font=dict(family=font_stack, size=14),  # default font (ticks, legend, etc.)
         scene=dict(
             xaxis=dict(
-                title=dict(text="x", font=dict(family=font_stack, size=16)),
+                title=dict(text="$x$", font=dict(family=font_stack, size=16)),
                 tickfont=dict(family=font_stack, size=12)
             ),
             yaxis=dict(
-                title=dict(text="y", font=dict(family=font_stack, size=16)),
+                title=dict(text="$y$", font=dict(family=font_stack, size=16)),
                 tickfont=dict(family=font_stack, size=12)
             ),
             zaxis=dict(
-                title=dict(text="value", font=dict(family=font_stack, size=16)),
+                title=dict(text="$f(x, y)$", font=dict(family=font_stack, size=16)),
                 tickfont=dict(family=font_stack, size=12)
             ),
         ),
@@ -324,7 +330,6 @@ def surface_3d(field2d, *, x=None, y=None, title="3-D surface"):
 
     fig.show()
     fig.write_html(f"{title.replace(' ', '_')}.html")
-
 
 
 def visualise_ind(loader, sample_idx=0, which="input", model=None, device="cpu"):
@@ -384,8 +389,6 @@ def visualise_ind(loader, sample_idx=0, which="input", model=None, device="cpu")
 
     else:
         raise ValueError("which must be 'input', 'ground_truth', or 'prediction'.")
-
-
 
 
 def visualise_1d_sample(test_loader, data_processor, model, device, sample_idx, title, filename, dpi=300):
@@ -452,6 +455,7 @@ def visualise_1d_sample(test_loader, data_processor, model, device, sample_idx, 
     fig.tight_layout()
     plt.savefig(filename, dpi=dpi)
     plt.close(fig)
+
 
 def evaluate_model_2d(model, test_loader, title, filename, device, visualise, data_processor,
                       eval_size=None, resize_mode='bilinear', align_corners=False):
@@ -617,22 +621,43 @@ def evaluate_model_1d(model, test_loader, title, filename, device, visualise, da
     model.eval()
 
     # Loss Functions
-    l2_fn = LpLoss(d=2, p=2)
-    linf_fn = LpLoss(d=2, p=float('inf'))
-    h1_fn = H1Loss(d=2)
+    l2_fn = LpLoss(d=1, p=2)
+    linf_fn = LpLoss(d=1, p=float('inf'))
+    h1_fn = H1Loss(d=1)
+
+    def preprocess_batch(batch):
+        """Apply the neuralop data processor if available; ensure tensors are on device."""
+        if isinstance(batch, dict):
+            xb, yb = batch["x"].to(device), batch["y"].to(device)
+            batch_dev = {"x": xb, "y": yb}
+        else:
+            xb, yb = batch
+            batch_dev = {"x": xb.to(device), "y": yb.to(device)}
+        if hasattr(data_processor, "preprocess"):
+            # neuralop processors accept batched dicts
+            return data_processor.preprocess(batch_dev)
+        return batch_dev
+
+    def maybe_resize_1d(t: torch.Tensor, L_target: int):
+        """Resize BCL tensor to target length along the last dimension if needed."""
+        if t.shape[-1] == L_target:
+            return t
+        return F.interpolate(t, size=L_target, mode='linear', align_corners=False)
+
 
     def compute_loss(loader):
         rel_l2s, rel_linfs, rel_h1s = [], [], []
         model.eval()
         with torch.no_grad():
-            for sample in loader:
-                if isinstance(sample, dict):
-                    x, y = sample["x"].to(device), sample["y"].to(device)
-                else:
-                    x, y = sample
-                    x, y = x.to(device), y.to(device)
+            for batch in loader:
+                batch = preprocess_batch(batch)
+                x, y = batch["x"], batch["y"]  # shapes: (B, C, L)
 
                 pred = model(x)
+
+                # If eval grid differs, resize targets to prediction length
+                if y.shape[-1] != pred.shape[-1]:
+                    y = maybe_resize_1d(y, pred.shape[-1])
 
                 l2 = l2_fn(pred, y, relative=True).item()
                 linf = linf_fn(pred, y, relative=True).item()
@@ -654,12 +679,9 @@ def evaluate_model_1d(model, test_loader, title, filename, device, visualise, da
     n_batches = 0
     total_time = 0.0
     with torch.no_grad():
-        for sample in test_loader:
-            if isinstance(sample, dict):
-                x = sample["x"].to(device)
-            else:
-                x, _ = sample
-                x = x.to(device)
+        for batch in test_loader:
+            batch = preprocess_batch(batch)
+            x = batch["x"]
 
             start = time.time()
             _ = model(x)
