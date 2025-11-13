@@ -11,6 +11,10 @@ import torch.nn.functional as F
 import h5py
 import torch
 
+# # Optionally suppress gstools RandMeth warnings about ignored kwargs
+# import warnings
+# warnings.filterwarnings("ignore", message="gstools.RandMeth: \*\*kwargs are ignored")
+
 from collections import defaultdict
 from torch.utils.data._utils.collate import default_collate
 from torch.utils.data import Dataset
@@ -234,23 +238,8 @@ def sample_field_2d(
 
     # Matérn GRF
     def _matern():
-        # cov = gs.Matern(
-        #     dim=2,
-        #     var=var,
-        #     len_scale=len_scale,
-        #     nu=smoothness,
-        # )
-        # srf = gs.SRF(cov, mode="fft")
-        # nx = ny = res + 1
-        # grid = np.linspace(0.0, 1.0, nx)
-        # field = srf.structured([grid, grid])
-        # def f(x):
-        #     xi = np.clip((x[0]*(nx-1)).astype(int), 0, nx-1)
-        #     yi = np.clip((x[1]*(ny-1)).astype(int), 0, ny-1)
-        #     return field[yi, xi]
-
         cov = gs.Matern(dim=2, var=var, len_scale=len_scale, nu=smoothness)
-        srf = gs.SRF(cov, mode="fft")
+        srf = gs.SRF(cov, generator="Fourier", period=[1.0, 1.0], mode_no=[res + 1, res + 1])
         nx = ny = res + 1
         grid = np.linspace(0.0, 1.0, nx)
         field = srf.structured([grid, grid]).astype(np.float64)
@@ -292,7 +281,7 @@ def sample_field_2d(
             var=var,
             len_scale=len_scale,
         )
-        srf = gs.SRF(cov, mode="fft")
+        srf = gs.SRF(cov, generator="Fourier", period=[1.0, 1.0], mode_no=[res + 1, res + 1])
         nx = ny = res + 1
         grid = np.linspace(0.0, 1.0, nx)
         field = srf.structured([grid, grid])
@@ -309,7 +298,7 @@ def sample_field_2d(
             var=var,
             len_scale=len_scale,
         )
-        srf = gs.SRF(cov, mode="fft")
+        srf = gs.SRF(cov, generator="Fourier", period=[1.0, 1.0], mode_no=[res + 1, res + 1])
         nx = ny = res + 1
         grid = np.linspace(0.0, 1.0, nx)
         field = srf.structured([grid, grid])

@@ -14,8 +14,6 @@
 \uc0\u55356 \u57200  Number of layers:        8\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf2 \uc0\u9878 \u65039  Model Size:              Massive\cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
 \
 Parameter Distribution:\
 | Parameter                             | Shape        | Params   |\
@@ -124,7 +122,7 @@ Test samples: 200 (8.3%)\
 \
 ## Hardware Configuration ##\
 Device: cuda\
-Torch version: 2.7.1+cu126\
+Torch version: 2.7.1+cu128\
 \
 ## Training Configuration ##\
 Epochs: 500\
@@ -134,58 +132,60 @@ Number of workers: 12\
 Training on 2000 samples\
 Testing on [200] samples         on resolutions ['val'].\
 Raw outputs of shape torch.Size([4, 1, 2048])\
-[0] time=8.63, avg_loss=0.2442, train_err=0.9767\
-Eval: val_H1=0.9759, val_L2=0.1293, val_Linf=0.4685\
-[25] time=8.40, avg_loss=0.0803, train_err=0.3212\
-Eval: val_H1=0.9639, val_L2=0.0891, val_Linf=0.5684\
-[50] time=8.41, avg_loss=0.0683, train_err=0.2733\
-Eval: val_H1=0.9377, val_L2=0.0653, val_Linf=0.5145\
-[75] time=8.41, avg_loss=0.0622, train_err=0.2486\
-Eval: val_H1=0.9463, val_L2=0.0798, val_Linf=0.5648\
-[100] time=8.36, avg_loss=0.0456, train_err=0.1824\
-Eval: val_H1=0.9364, val_L2=0.0632, val_Linf=0.5329\
-[125] time=8.27, avg_loss=0.0403, train_err=0.1613\
-Eval: val_H1=0.9466, val_L2=0.0624, val_Linf=0.5566\
-[150] time=8.54, avg_loss=0.0394, train_err=0.1578\
-Eval: val_H1=0.9246, val_L2=0.0567, val_Linf=0.5166\
-[175] time=8.45, avg_loss=0.0384, train_err=0.1537\
-Eval: val_H1=0.9625, val_L2=0.0640, val_Linf=0.5771\
-[200] time=8.32, avg_loss=0.0304, train_err=0.1217\
-Eval: val_H1=0.9571, val_L2=0.0567, val_Linf=0.5546\
-[225] time=8.39, avg_loss=0.0260, train_err=0.1041\
-Eval: val_H1=0.9319, val_L2=0.0541, val_Linf=0.5172\
-[250] time=8.35, avg_loss=0.0243, train_err=0.0974\
-Eval: val_H1=0.9469, val_L2=0.0544, val_Linf=0.5282\
-[275] time=8.39, avg_loss=0.0253, train_err=0.1014\
-Eval: val_H1=0.9381, val_L2=0.0537, val_Linf=0.5226\
-[300] time=8.34, avg_loss=0.0188, train_err=0.0753\
-Eval: val_H1=0.9584, val_L2=0.0533, val_Linf=0.5336\
-[325] time=8.23, avg_loss=0.0160, train_err=0.0641\
-Eval: val_H1=0.9541, val_L2=0.0525, val_Linf=0.5138\
-[350] time=8.41, avg_loss=0.0163, train_err=0.0651\
-Eval: val_H1=0.9694, val_L2=0.0530, val_Linf=0.5296\
-[375] time=8.50, avg_loss=0.0164, train_err=0.0654\
-Eval: val_H1=0.9847, val_L2=0.0535, val_Linf=0.5339\
-[400] time=8.39, avg_loss=0.0129, train_err=0.0515\
-Eval: val_H1=0.9668, val_L2=0.0525, val_Linf=0.5198\
-[425] time=8.24, avg_loss=0.0110, train_err=0.0439\
-Eval: val_H1=0.9879, val_L2=0.0527, val_Linf=0.5287\
-[450] time=8.42, avg_loss=0.0110, train_err=0.0440\
-Eval: val_H1=0.9950, val_L2=0.0529, val_Linf=0.5369\
-[475] time=8.30, avg_loss=0.0106, train_err=0.0425\
-Eval: val_H1=0.9850, val_L2=0.0526, val_Linf=0.5329\
+[0] time=9.12, avg_loss=0.2202, train_err=0.8809\
+Eval: val_H1=0.9139, val_L2=0.1304, val_Linf=1.0000\
+[25] time=8.68, avg_loss=0.0657, train_err=0.2629\
+Eval: val_H1=0.8466, val_L2=0.0668, val_Linf=1.0000\
+[50] time=8.56, avg_loss=0.0597, train_err=0.2388\
+Eval: val_H1=0.8499, val_L2=0.0719, val_Linf=1.0000\
+[75] time=8.63, avg_loss=0.0516, train_err=0.2064\
+Eval: val_H1=0.8238, val_L2=0.0541, val_Linf=1.0000\
+[100] time=8.85, avg_loss=0.0371, train_err=0.1483\
+Eval: val_H1=0.7697, val_L2=0.0374, val_Linf=1.0000\
+[125] time=8.81, avg_loss=0.0330, train_err=0.1319\
+Eval: val_H1=0.8041, val_L2=0.0391, val_Linf=1.0000\
+[150] time=8.58, avg_loss=0.0308, train_err=0.1232\
+Eval: val_H1=0.7952, val_L2=0.0418, val_Linf=1.0000\
+[175] time=8.76, avg_loss=0.0301, train_err=0.1202\
+Eval: val_H1=0.7744, val_L2=0.0402, val_Linf=1.0000\
+[200] time=8.69, avg_loss=0.0222, train_err=0.0888\
+Eval: val_H1=0.7466, val_L2=0.0325, val_Linf=1.0000\
+[225] time=8.80, avg_loss=0.0204, train_err=0.0815\
+Eval: val_H1=0.7584, val_L2=0.0338, val_Linf=1.0000\
+[250] time=8.66, avg_loss=0.0201, train_err=0.0802\
+Eval: val_H1=0.7271, val_L2=0.0311, val_Linf=1.0000\
+[275] time=8.85, avg_loss=0.0195, train_err=0.0779\
+Eval: val_H1=0.7972, val_L2=0.0352, val_Linf=1.0000\
+[300] time=8.72, avg_loss=0.0144, train_err=0.0578\
+Eval: val_H1=0.7102, val_L2=0.0285, val_Linf=1.0000\
+[325] time=8.68, avg_loss=0.0132, train_err=0.0528\
+Eval: val_H1=0.7014, val_L2=0.0274, val_Linf=1.0000\
+[350] time=8.76, avg_loss=0.0133, train_err=0.0531\
+Eval: val_H1=0.7372, val_L2=0.0286, val_Linf=1.0000\
+[375] time=8.82, avg_loss=0.0128, train_err=0.0513\
+Eval: val_H1=0.7015, val_L2=0.0268, val_Linf=1.0000\
+[400] time=8.80, avg_loss=0.0094, train_err=0.0376\
+Eval: val_H1=0.6688, val_L2=0.0251, val_Linf=1.0000\
+[425] time=8.89, avg_loss=0.0084, train_err=0.0337\
+Eval: val_H1=0.6801, val_L2=0.0259, val_Linf=1.0000\
+[450] time=8.60, avg_loss=0.0078, train_err=0.0314\
+Eval: val_H1=0.6808, val_L2=0.0253, val_Linf=1.0000\
+[475] time=8.58, avg_loss=0.0080, train_err=0.0319\
+Eval: val_H1=0.6766, val_L2=0.0252, val_Linf=1.0000\
 \uc0\u9989  Trained model saved to 'inviscid_burgers/inviscid_burgers_model_2048_massive.pt'\
 \
 Model diagnostics:\
+\
 | Metric              | Value   |\
 |---------------------|---------|\
-| Test L2 Error       | 7.32%   |\
+| Test L2 Error       | 4.48%   |\
 | Test Linf Error     | 92.49%  |\
-| Test H1 Error       | 203.99% |\
+| Test H1 Error       | 144.90% |\
 | # Parameters        | 527,185 |\
-| Avg. inference (ms) | 4.18    |\
+| Avg. inference (ms) | 4.14    |\
 \
-real    69m58.099s\
-user    69m36.660s\
-sys     0m9.290s\
+real    73m19.556s\
+user    72m42.373s\
+sys     0m11.692s\
+\
 }

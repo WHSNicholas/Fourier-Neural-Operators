@@ -9,6 +9,25 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+# import warnings
+# warnings.filterwarnings("ignore", category=UserWarning)
+
+import logging
+import os
+import sys
+
+# # Suppress all warnings and reduce PyTorch/NeuralOp logs
+# warnings.filterwarnings("ignore")
+# os.environ["PYTHONWARNINGS"] = "ignore"
+# os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
+# # Disable logging
+# logging.disable(logging.CRITICAL)
+#
+# # Redirect stderr to null to hide torch warnings
+# sys.stderr = open(os.devnull, "w")
+
+
 
 # Dependencies
 import torch
@@ -26,18 +45,18 @@ from neuralop.data.transforms import data_processors
 verbose = True                                     # Verbosity
 eval = True                                        # Model Evaluation
 epochs = 500                                       # Epochs
-res = 2**4                                         # Downsampling Resolution
-res_eval = 2**9                                    # Evaluation Resolution
-filename = f"inviscid_burgers_model_{res}_medium"  # Filename
+res = 2**11                                         # Downsampling Resolution
+res_eval = 2**11                                   # Evaluation Resolution
+filename = f"inviscid_burgers_model_{res}_gigantic"# Filename
 
 batch_size = 4                                     # Batch Size
 num_workers = 12                                   # Parallelising
 
 # FNO Model
 i, o = 1, 1                                        # Input/Output Dimension
-hidden_channels = 16                               # Dimension of Latent Representation
-n_modes = 8                                        # Number of Fourier Modes
-n_layers = 6                                       # Number of Layers
+hidden_channels = 48                               # Dimension of Latent Representation
+n_modes = 36                                       # Number of Fourier Modes
+n_layers = 8                                       # Number of Layers
 d = 1                                              # Spatial Domain
 p = 2                                              # Lp Loss
 

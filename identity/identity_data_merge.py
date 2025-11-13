@@ -14,7 +14,7 @@ verbose = True
 
 # %% 2. Merging Data -----------------------------------------------------------------------------------------
 # Sample Files
-file_paths = sorted(glob.glob("identity/identity_batches/identity_batch_*.npz"))
+file_paths = sorted(glob.glob("identity/data/identity_batch_*.npz"))
 
 # Determine Shapes
 sample0 = np.load(file_paths[0])

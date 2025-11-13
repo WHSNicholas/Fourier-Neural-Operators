@@ -7,13 +7,13 @@
 
 \f0\fs24 \cf0 #### FNO 1D-INVISCID BURGERS ####\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 ## Model Architecture ##\
+## Model Architecture ##\
 \uc0\u55358 \u56812  Model type:              FNO-1D\
 \uc0\u55356 \u57243 \u65039  Hidden channels:         32\
 \uc0\u55357 \u56585  Number of Fourier modes: 12 (per dimension)\
 \uc0\u55356 \u57200  Number of layers:        6\
-\cf2 \uc0\u9878 \u65039  Model Size:              Large\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \uc0\u9878 \u65039  Model Size:              Large\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
 Parameter Distribution:\
@@ -107,7 +107,7 @@ Test samples: 200 (8.3%)\
 \
 ## Hardware Configuration ##\
 Device: cuda\
-Torch version: 2.7.1+cu126\
+Torch version: 2.7.1+cu128\
 \
 ## Training Configuration ##\
 Epochs: 500\
@@ -117,60 +117,59 @@ Number of workers: 12\
 Training on 2000 samples\
 Testing on [200] samples         on resolutions ['val'].\
 Raw outputs of shape torch.Size([4, 1, 512])\
-[0] time=6.94, avg_loss=0.2562, train_err=1.0246\
-Eval: val_H1=0.9641, val_L2=0.1914, val_Linf=0.5826\
-[25] time=6.52, avg_loss=0.0816, train_err=0.3266\
-Eval: val_H1=0.9001, val_L2=0.0840, val_Linf=0.5082\
-[50] time=6.57, avg_loss=0.0707, train_err=0.2830\
-Eval: val_H1=0.9217, val_L2=0.0850, val_Linf=0.5527\
-[75] time=6.57, avg_loss=0.0657, train_err=0.2628\
-Eval: val_H1=0.8526, val_L2=0.0710, val_Linf=0.4922\
-[100] time=6.59, avg_loss=0.0489, train_err=0.1957\
-Eval: val_H1=0.7449, val_L2=0.0517, val_Linf=0.4097\
-[125] time=6.49, avg_loss=0.0443, train_err=0.1770\
-Eval: val_H1=0.6844, val_L2=0.0419, val_Linf=0.3549\
-[150] time=6.64, avg_loss=0.0400, train_err=0.1602\
-Eval: val_H1=0.7272, val_L2=0.0458, val_Linf=0.4075\
-[175] time=6.53, avg_loss=0.0416, train_err=0.1664\
-Eval: val_H1=0.8468, val_L2=0.0576, val_Linf=0.4961\
-[200] time=6.57, avg_loss=0.0326, train_err=0.1305\
-Eval: val_H1=0.6423, val_L2=0.0385, val_Linf=0.3231\
-[225] time=6.52, avg_loss=0.0290, train_err=0.1160\
-Eval: val_H1=0.6231, val_L2=0.0374, val_Linf=0.3342\
-[250] time=6.47, avg_loss=0.0289, train_err=0.1157\
-Eval: val_H1=0.6260, val_L2=0.0384, val_Linf=0.3451\
-[275] time=6.62, avg_loss=0.0294, train_err=0.1176\
-Eval: val_H1=0.6045, val_L2=0.0364, val_Linf=0.3226\
-[300] time=6.59, avg_loss=0.0217, train_err=0.0868\
-Eval: val_H1=0.6084, val_L2=0.0357, val_Linf=0.3180\
-[325] time=6.56, avg_loss=0.0195, train_err=0.0782\
-Eval: val_H1=0.6086, val_L2=0.0353, val_Linf=0.3225\
-[350] time=6.52, avg_loss=0.0202, train_err=0.0810\
-Eval: val_H1=0.6371, val_L2=0.0360, val_Linf=0.3299\
-[375] time=6.53, avg_loss=0.0187, train_err=0.0748\
-Eval: val_H1=0.5983, val_L2=0.0348, val_Linf=0.3084\
-[400] time=6.64, avg_loss=0.0163, train_err=0.0652\
-Eval: val_H1=0.5724, val_L2=0.0332, val_Linf=0.2916\
-[425] time=6.52, avg_loss=0.0151, train_err=0.0603\
-Eval: val_H1=0.5943, val_L2=0.0338, val_Linf=0.3061\
-[450] time=6.54, avg_loss=0.0154, train_err=0.0614\
-Eval: val_H1=0.6428, val_L2=0.0360, val_Linf=0.3379\
-[475] time=6.52, avg_loss=0.0147, train_err=0.0587\
-Eval: val_H1=0.5951, val_L2=0.0340, val_Linf=0.3085\
+[0] time=7.49, avg_loss=0.2365, train_err=0.9462\
+Eval: val_H1=0.8950, val_L2=0.1238, val_Linf=1.0000\
+[25] time=6.85, avg_loss=0.0735, train_err=0.2938\
+Eval: val_H1=0.7382, val_L2=0.0533, val_Linf=1.0000\
+[50] time=7.00, avg_loss=0.0582, train_err=0.2330\
+Eval: val_H1=0.7148, val_L2=0.0532, val_Linf=1.0000\
+[75] time=6.99, avg_loss=0.0562, train_err=0.2250\
+Eval: val_H1=0.7005, val_L2=0.0480, val_Linf=1.0000\
+[100] time=7.03, avg_loss=0.0389, train_err=0.1555\
+Eval: val_H1=0.6257, val_L2=0.0343, val_Linf=1.0000\
+[125] time=6.87, avg_loss=0.0361, train_err=0.1442\
+Eval: val_H1=0.5693, val_L2=0.0276, val_Linf=1.0000\
+[150] time=6.97, avg_loss=0.0345, train_err=0.1382\
+Eval: val_H1=0.6647, val_L2=0.0368, val_Linf=1.0000\
+[175] time=6.82, avg_loss=0.0341, train_err=0.1364\
+Eval: val_H1=0.5406, val_L2=0.0274, val_Linf=1.0000\
+[200] time=6.85, avg_loss=0.0254, train_err=0.1018\
+Eval: val_H1=0.5670, val_L2=0.0292, val_Linf=1.0000\
+[225] time=6.97, avg_loss=0.0242, train_err=0.0968\
+Eval: val_H1=0.5545, val_L2=0.0280, val_Linf=1.0000\
+[250] time=6.91, avg_loss=0.0241, train_err=0.0964\
+Eval: val_H1=0.5632, val_L2=0.0274, val_Linf=1.0000\
+[275] time=6.94, avg_loss=0.0229, train_err=0.0915\
+Eval: val_H1=0.6009, val_L2=0.0315, val_Linf=1.0000\
+[300] time=7.01, avg_loss=0.0162, train_err=0.0649\
+Eval: val_H1=0.4686, val_L2=0.0203, val_Linf=1.0000\
+[325] time=6.93, avg_loss=0.0153, train_err=0.0612\
+Eval: val_H1=0.4945, val_L2=0.0215, val_Linf=1.0000\
+[350] time=6.99, avg_loss=0.0150, train_err=0.0601\
+Eval: val_H1=0.4857, val_L2=0.0220, val_Linf=1.0000\
+[375] time=7.03, avg_loss=0.0132, train_err=0.0529\
+Eval: val_H1=0.4470, val_L2=0.0188, val_Linf=1.0000\
+[400] time=6.80, avg_loss=0.0107, train_err=0.0429\
+Eval: val_H1=0.4173, val_L2=0.0171, val_Linf=1.0000\
+[425] time=6.89, avg_loss=0.0101, train_err=0.0402\
+Eval: val_H1=0.4613, val_L2=0.0190, val_Linf=1.0000\
+[450] time=6.94, avg_loss=0.0098, train_err=0.0393\
+Eval: val_H1=0.4166, val_L2=0.0170, val_Linf=1.0000\
+[475] time=7.05, avg_loss=0.0096, train_err=0.0384\
+Eval: val_H1=0.4233, val_L2=0.0173, val_Linf=1.0000\
 \uc0\u9989  Trained model saved to 'inviscid_burgers/inviscid_burgers_model_512_large.pt'\
-LMODERN.STY\
 \
 Model diagnostics:\
 \
 | Metric              | Value   |\
 |---------------------|---------|\
-| Test L2 Error       | 6.33%   |\
-| Test Linf Error     | 46.80%  |\
-| Test H1 Error       | 118.74% |\
+| Test L2 Error       | 3.97%   |\
+| Test Linf Error     | 48.80%  |\
+| Test H1 Error       | 107.42% |\
 | # Parameters        | 103,425 |\
-| Avg. inference (ms) | 3.22    |\
+| Avg. inference (ms) | 3.26    |\
 \
-real    54m51.564s\
-user    54m30.607s\
-sys     0m8.734s\
+real    58m6.692s\
+user    57m37.373s\
+sys     0m10.808s\
 }

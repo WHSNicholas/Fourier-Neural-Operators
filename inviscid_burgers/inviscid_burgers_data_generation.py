@@ -215,7 +215,7 @@ def generate_data_batch(n_samples, batch_id):
             type='matern',
             smoothness=1/3,
             amplitude=1,
-            nu=2,
+            nu=3,
             var=3
         )
 

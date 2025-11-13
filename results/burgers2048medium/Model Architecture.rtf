@@ -1,5 +1,5 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2866
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;}
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 AndaleMono;\f1\fnil\fcharset0 AppleColorEmoji;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
@@ -8,13 +8,24 @@
 \f0\fs24 \cf0 #### FNO 1D-BURGERS ####\
 \
 ## Model Architecture ##\
-\uc0\u55358 \u56812  Model type:              FNO-1D\
-\uc0\u55356 \u57243 \u65039  Hidden channels:         16\
-\uc0\u55357 \u56585  Number of Fourier modes: 8 (per dimension)\
-\uc0\u55356 \u57200  Number of layers:        6\
+
+\f1 \uc0\u55358 \u56812 
+\f0  Model type:              FNO-1D\
+
+\f1 \uc0\u55356 \u57243 \u65039 
+\f0  Hidden channels:         16\
+
+\f1 \uc0\u55357 \u56585 
+\f0  Number of Fourier modes: 8 (per dimension)\
+
+\f1 \uc0\u55356 \u57200 
+\f0  Number of layers:        6\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf2 \uc0\u9878 \u65039  Model Size:              Medium\cf0 \
-\
+
+\f1 \cf2 \uc0\u9878 \u65039 
+\f0  Model Size:              Medium\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 Parameter Distribution:\
 | Parameter                             | Shape       | Params   |\
 |---------------------------------------|-------------|----------|\
@@ -75,7 +86,9 @@ Parameter Distribution:\
 | Projection Fcs 1 Weight               | [1, 32, 1]  | 32       |\
 | Projection Fcs 1 Bias                 | [1]         | 1        |\
 | Total Trainable Parameters            |             | 12,289   |\
-\uc0\u55356 \u57243 \u65039  Model Parameters (Including Non-Trainable): 19,969\
+
+\f1 \uc0\u55356 \u57243 \u65039 
+\f0  Model Parameters (Including Non-Trainable): 19,969\
 \
 ## Optimser Configuration ##\
 Optimizer: AdamW\
@@ -116,60 +129,61 @@ Number of workers: 12\
 Training on 2000 samples\
 Testing on [200] samples         on resolutions ['val'].\
 Raw outputs of shape torch.Size([4, 1, 2048])\
-[0] time=7.14, avg_loss=0.2373, train_err=0.9493\
-Eval: val_H1=1.1534, val_L2=0.0666, val_Linf=0.0919\
-[25] time=6.72, avg_loss=0.0267, train_err=0.1069\
-Eval: val_H1=0.1403, val_L2=0.0160, val_Linf=0.0236\
-[50] time=6.84, avg_loss=0.0192, train_err=0.0769\
-Eval: val_H1=0.1089, val_L2=0.0307, val_Linf=0.0381\
-[75] time=6.86, avg_loss=0.0169, train_err=0.0675\
-Eval: val_H1=0.0725, val_L2=0.0179, val_Linf=0.0215\
-[100] time=6.91, avg_loss=0.0078, train_err=0.0312\
-Eval: val_H1=0.0480, val_L2=0.0076, val_Linf=0.0097\
-[125] time=6.76, avg_loss=0.0079, train_err=0.0317\
-Eval: val_H1=0.0378, val_L2=0.0078, val_Linf=0.0099\
-[150] time=6.74, avg_loss=0.0086, train_err=0.0344\
-Eval: val_H1=0.0381, val_L2=0.0075, val_Linf=0.0109\
-[175] time=6.76, avg_loss=0.0076, train_err=0.0305\
-Eval: val_H1=0.0317, val_L2=0.0068, val_Linf=0.0093\
-[200] time=6.91, avg_loss=0.0042, train_err=0.0166\
-Eval: val_H1=0.0251, val_L2=0.0036, val_Linf=0.0053\
-[225] time=6.75, avg_loss=0.0039, train_err=0.0157\
-Eval: val_H1=0.0232, val_L2=0.0032, val_Linf=0.0049\
-[250] time=6.76, avg_loss=0.0037, train_err=0.0147\
-Eval: val_H1=0.0227, val_L2=0.0032, val_Linf=0.0045\
-[275] time=6.73, avg_loss=0.0035, train_err=0.0140\
-Eval: val_H1=0.0187, val_L2=0.0034, val_Linf=0.0047\
-[300] time=6.92, avg_loss=0.0021, train_err=0.0085\
-Eval: val_H1=0.0166, val_L2=0.0015, val_Linf=0.0025\
-[325] time=6.82, avg_loss=0.0023, train_err=0.0090\
-Eval: val_H1=0.0156, val_L2=0.0017, val_Linf=0.0026\
-[350] time=6.83, avg_loss=0.0018, train_err=0.0070\
-Eval: val_H1=0.0147, val_L2=0.0014, val_Linf=0.0023\
-[375] time=6.84, avg_loss=0.0021, train_err=0.0084\
-Eval: val_H1=0.0145, val_L2=0.0031, val_Linf=0.0042\
-[400] time=6.89, avg_loss=0.0011, train_err=0.0042\
-Eval: val_H1=0.0137, val_L2=0.0016, val_Linf=0.0025\
-[425] time=6.86, avg_loss=0.0011, train_err=0.0045\
-Eval: val_H1=0.0132, val_L2=0.0017, val_Linf=0.0025\
-[450] time=6.85, avg_loss=0.0011, train_err=0.0045\
-Eval: val_H1=0.0126, val_L2=0.0013, val_Linf=0.0021\
-[475] time=6.77, avg_loss=0.0010, train_err=0.0041\
-Eval: val_H1=0.0121, val_L2=0.0013, val_Linf=0.0020\
-\uc0\u9989  Trained model saved to 'burgers/burgers_model_2048_medium.pt'\
+[0] time=7.06, avg_loss=0.1961, train_err=0.7843\
+Eval: val_H1=0.8532, val_L2=0.0299, val_Linf=0.0468\
+[25] time=6.70, avg_loss=0.0226, train_err=0.0903\
+Eval: val_H1=0.1328, val_L2=0.0855, val_Linf=0.0789\
+[50] time=6.67, avg_loss=0.0204, train_err=0.0815\
+Eval: val_H1=0.1239, val_L2=0.0399, val_Linf=0.0461\
+[75] time=6.65, avg_loss=0.0159, train_err=0.0635\
+Eval: val_H1=0.1271, val_L2=0.0170, val_Linf=0.0219\
+[100] time=6.74, avg_loss=0.0078, train_err=0.0314\
+Eval: val_H1=0.0837, val_L2=0.0101, val_Linf=0.0145\
+[125] time=6.78, avg_loss=0.0078, train_err=0.0311\
+Eval: val_H1=0.0662, val_L2=0.0167, val_Linf=0.0192\
+[150] time=6.73, avg_loss=0.0066, train_err=0.0265\
+Eval: val_H1=0.0573, val_L2=0.0050, val_Linf=0.0078\
+[175] time=6.78, avg_loss=0.0085, train_err=0.0338\
+Eval: val_H1=0.0504, val_L2=0.0061, val_Linf=0.0088\
+[200] time=6.69, avg_loss=0.0040, train_err=0.0161\
+Eval: val_H1=0.0435, val_L2=0.0035, val_Linf=0.0057\
+[225] time=6.69, avg_loss=0.0042, train_err=0.0166\
+Eval: val_H1=0.0394, val_L2=0.0037, val_Linf=0.0062\
+[250] time=6.64, avg_loss=0.0048, train_err=0.0191\
+Eval: val_H1=0.0358, val_L2=0.0057, val_Linf=0.0077\
+[275] time=6.85, avg_loss=0.0034, train_err=0.0136\
+Eval: val_H1=0.0291, val_L2=0.0025, val_Linf=0.0040\
+[300] time=6.85, avg_loss=0.0021, train_err=0.0084\
+Eval: val_H1=0.0259, val_L2=0.0018, val_Linf=0.0030\
+[325] time=6.84, avg_loss=0.0022, train_err=0.0089\
+Eval: val_H1=0.0220, val_L2=0.0019, val_Linf=0.0030\
+[350] time=6.68, avg_loss=0.0020, train_err=0.0080\
+Eval: val_H1=0.0207, val_L2=0.0023, val_Linf=0.0035\
+[375] time=6.81, avg_loss=0.0021, train_err=0.0082\
+Eval: val_H1=0.0195, val_L2=0.0022, val_Linf=0.0033\
+[400] time=6.67, avg_loss=0.0012, train_err=0.0047\
+Eval: val_H1=0.0176, val_L2=0.0011, val_Linf=0.0019\
+[425] time=6.80, avg_loss=0.0013, train_err=0.0051\
+Eval: val_H1=0.0171, val_L2=0.0014, val_Linf=0.0023\
+[450] time=6.72, avg_loss=0.0013, train_err=0.0051\
+Eval: val_H1=0.0166, val_L2=0.0015, val_Linf=0.0024\
+[475] time=6.83, avg_loss=0.0013, train_err=0.0050\
+Eval: val_H1=0.0156, val_L2=0.0011, val_Linf=0.0018\
+
+\f1 \uc0\u9989 
+\f0  Trained model saved to 'burgers/burgers_model_2048_medium.pt'\
 \
 Model diagnostics:\
 \
 | Metric              | Value   |\
 |---------------------|---------|\
-| Test L2 Error       | 0.41%   |\
-| Test Linf Error     | 0.67%   |\
-| Test H1 Error       | 4.39%   |\
+| Test L2 Error       | 0.54%   |\
+| Test Linf Error     | 0.85%   |\
+| Test H1 Error       | 5.62%   |\
 | # Parameters        | 19,969  |\
-| Avg. inference (ms) | 3.19    |\
+| Avg. inference (ms) | 3.22    |\
 \
-real    57m0.059s\
-user    55m35.764s\
-sys     1m12.494s\
-\
+real    56m31.702s\
+user    55m14.200s\
+sys     1m5.541s\
 }

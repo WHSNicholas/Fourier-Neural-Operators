@@ -23,37 +23,38 @@ import torch.nn as nn
 
 # Parameters
 # Basic
-verbose = True                            # Verbosity
-eval = True                               # Model Evaluation
-epochs = 500                              # Epochs
-res = 2**10                                # Training Resolution
-res_eval = 2**10                           # Evaluation Resolution
-filename = f"identity_model_{res}_medium" # Filename
+verbose = True                                 # Verbosity
+eval = True                                    # Model Evaluation
+epochs = 500                                   # Epochs
+res = 2**10                                    # Training Resolution
+res_eval = 2**10                               # Evaluation Resolution
+filename = f"identity_model_{res}_medium_psi" # Filename
 
-batch_size = 4                            # Batch Size
-num_workers = 12                          # Parallelising
+batch_size = 4                                 # Batch Size
+num_workers = 12                               # Parallelising
 
 # FNO Model
-i, o = 1, 1                               # Input/Output Dimension
-hidden_channels = 4                       # Dimension of Latent Representation
-n_modes = 54                               # Number of Fourier Modes
-n_layers = 4                              # Number of Layers
-d = 1                                     # Spatial Domain
-p = 2                                     # Lp Loss
+i, o = 1, 1                                    # Input/Output Dimension
+hidden_channels = 24                           # Dimension of Latent Representation
+n_modes = 24                                   # Number of Fourier Modes
+n_layers = 8                                   # Number of Layers
+d = 1                                          # Spatial Domain
+p = 2                                          # Lp Loss
+psi_fno = True                                 # Pseudospectral FNO
 
 # Optimiser
-lr = 10**-3                               # Learning Rate
-betas = (0.9, 0.999)                      # Decay Rates for Moments
-eps = 10**-6                              # Epsilon for Stability
-weight_decay = 10**-4                     # Weight Decay
-step_size = 100                           # Learning Rate Step Decay
-gamma = 0.5                               # Learning Rate Decay
+lr = 10**-3                                    # Learning Rate
+betas = (0.9, 0.999)                           # Decay Rates for Moments
+eps = 10**-6                                   # Epsilon for Stability
+weight_decay = 10**-4                          # Weight Decay
+step_size = 100                                # Learning Rate Step Decay
+gamma = 0.5                                    # Learning Rate Decay
 
 # Trainer
-wandb_log = False                         # Weights and Biases Log
-eval_interval = 25                        # Evaluation Interval
-use_distributed = False                   # Distributed Runtime
-train = True                             # Train Model
+wandb_log = False                              # Weights and Biases Log
+eval_interval = 25                             # Evaluation Interval
+use_distributed = False                        # Distributed Runtime
+train = True                                   # Train Model
 
 # Device
 if torch.cuda.is_available():
@@ -61,22 +62,28 @@ if torch.cuda.is_available():
 else:
     device = torch.device("cpu")
 
-# Class wrapper
+# Pseudospectral FNO
 class SpectralProjector1D(nn.Module):
     """Project last-dim spectrum to the first n_keep rFFT modes (hard truncation)."""
     def __init__(self, n_keep: int):
         super().__init__()
         self.n_keep = int(n_keep)
+        self.register_buffer("mask", None)
+
+    def _get_mask(self, Xr: int):
+        k = min(self.n_keep, Xr)
+        if (self.mask is None) or (self.mask.numel() != Xr):
+            m = torch.zeros(Xr, dtype=torch.complex64)
+            m[:k] = 1
+            self.mask = m[None, None, :]
+        return self.mask
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # x: [B, C, X]
         X = x.shape[-1]
-        x_hat = torch.fft.rfft(x, dim=-1)          # [B, C, X_r], X_r = X//2 + 1
-        Xr = x_hat.shape[-1]
-        k = min(self.n_keep, Xr)
-        if k < Xr:
-            x_hat[..., k:] = 0                     # zero all modes above n_keep
-        y = torch.fft.irfft(x_hat, n=X, dim=-1)    # back to physical space
+        x_hat = torch.fft.rfft(x, dim=-1)
+        m = self._get_mask(x_hat.shape[-1])
+        x_hat = x_hat * m
+        y = torch.fft.irfft(x_hat, n=X, dim=-1)
         return y
 
 
@@ -144,17 +151,7 @@ test_loader = DataLoader(
 
 # %% 4. Model ------------------------------------------------------------------------------------------------
 # Creating FNO Model
-# model = FNO(
-#     in_channels=i,
-#     out_channels=o,
-#     hidden_channels=hidden_channels,
-#     n_modes=(n_modes,),
-#     n_layers=n_layers,
-# )
-#
-# model = model.to(device)
-
-model_core = FNO(
+model = FNO(
     in_channels=i,
     out_channels=o,
     hidden_channels=hidden_channels,
@@ -162,7 +159,10 @@ model_core = FNO(
     n_layers=n_layers,
 ).to(device)
 
-model = BandLimitedFNO(model_core, n_keep=n_modes).to(device)
+if psi_fno:
+    model = BandLimitedFNO(model, n_keep=n_modes).to(device)
+else:
+    model = model.to(device)
 
 data_processor = data_processors.DefaultDataProcessor().to(device)
 
