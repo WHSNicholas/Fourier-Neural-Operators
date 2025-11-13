@@ -58,7 +58,7 @@ for i in range(rank, N_samples, size):
 
     # Sample Initial Condition
     u0_expr = sample_field_1d(res=d_res, L=L, type='matern',
-                              smoothness=1/3, nu=2, var=3)
+                              smoothness=1/3, nu=3, var=3)
     u0 = torch.from_numpy(u0_expr((x.cpu().numpy(), ))).to(device)
     u1 = u0.clone()
 

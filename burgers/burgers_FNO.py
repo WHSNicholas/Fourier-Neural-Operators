@@ -10,6 +10,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
+
 # Dependencies
 import torch
 from utils.data import dict_collate, Dataset
@@ -53,7 +54,7 @@ gamma = 0.5                               # Learning Rate Decay
 wandb_log = False                         # Weights and Biases Log
 eval_interval = 25                        # Evaluation Interval
 use_distributed = False                   # Distributed Runtime
-train = False                             # Train Model
+train = False                              # Train Model
 
 # Device
 if torch.cuda.is_available():
