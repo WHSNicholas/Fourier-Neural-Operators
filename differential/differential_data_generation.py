@@ -28,14 +28,14 @@ rank = comm.rank
 size = comm.size
 
 # Parameters - CHANGED TO USE EVEN GRID SIZE
-N = 2 ** 7  # Bandlimit Index
-n = 2 * N  # Grid Size - NOW EVEN (256)
+N = 2 ** 6  # Bandlimit Index
+n = 512  # Grid Size - NOW EVEN (256)
 batch_size = 10  # Batch Size
-N_samples = 12 * batch_size *20 # Number of datapoints generated
+N_samples = 12 * batch_size * 20 # Number of datapoints generated
 verbose = True  # Verbosity
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-out_dir = os.path.join(BASE_DIR, "differential_batches")
+out_dir = os.path.join(BASE_DIR, "differential_batches2")
 os.makedirs(out_dir, exist_ok=True)
 if verbose and rank == 0:
     print(f"[All ranks] Saving batches to: {out_dir}")
@@ -93,13 +93,13 @@ grid1d = np.linspace(0.0, 1.0, n, endpoint=False)
 # 2. Lower smoothness parameter (nu) -> rougher field
 
 # High-frequency Matérn field parameters
-len_scale_hf = 0.03  # Much smaller length scale for high frequencies
-nu_hf = 0.5  # Lower nu for rougher field (more high-frequency content)
+len_scale_hf = 0.05  # Much smaller length scale for high frequencies
+nu_hf = 1.5  # Lower nu for rougher field (more high-frequency content)
 var_hf = 1.0  # Variance
 
 # Build the high-frequency Matérn SRF - NOW WITH EVEN mode_no
 cov_hf = gs.Matern(dim=2, var=var_hf, len_scale=len_scale_hf, nu=nu_hf)
-srf_hf = gs.SRF(cov_hf, generator="Fourier", period=[1.0, 1.0], mode_no=[n, n])
+srf_hf = gs.SRF(cov_hf, generator="Fourier", period=[1.0, 1.0], mode_no=[N, N])
 
 
 def generate_high_frequency_field(srf, rng, grid1d, n, method='matern_hf'):
@@ -110,7 +110,7 @@ def generate_high_frequency_field(srf, rng, grid1d, n, method='matern_hf'):
         # CRITICAL: Create new SRF with different seed for each sample
         seed = rng.integers(0, 2 ** 31 - 1)
         cov_hf = gs.Matern(dim=2, var=var_hf, len_scale=len_scale_hf, nu=nu_hf)
-        srf_new = gs.SRF(cov_hf, generator="Fourier", period=[1.0, 1.0], mode_no=[n, n], seed=seed)
+        srf_new = gs.SRF(cov_hf, generator="Fourier", period=[1.0, 1.0], mode_no=[2*N, 2*N], seed=seed)
         field = srf_new.structured([grid1d, grid1d])
 
     elif method == 'multi_scale':
@@ -187,6 +187,13 @@ for j in range(local_count):
     t2 = time.time()
 
     dsum = (dfx + dfy).astype(np.float32)  # (n, n)
+
+    # Per-sample normalisation (zero mean, unit variance)
+    f_mean, f_std = np.mean(f), np.std(f)
+    f = (f - f_mean) / (f_std + 1e-8)
+
+    dsum_mean, dsum_std = np.mean(dsum), np.std(dsum)
+    dsum = (dsum - dsum_mean) / (dsum_std + 1e-8)
 
     if verbose and (j % batch_size == 0) and (rank == 0):
         print(f"[Rank {rank}] sample {j + 1}: field={t1 - t0:.3f}s | deriv={t2 - t1:.3f}s")

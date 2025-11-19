@@ -100,9 +100,9 @@ S_curve_lit = C_lit * fno_size_lit(eps_curve)
 plt.figure(figsize=(8, 5))
 
 # Theory as a smooth curve
-plt.plot(S_curve_ours, eps_curve, color='green', linewidth=2, label=f'Our Theory (Algebraic) $(d=1, k=0.5)$')
-plt.plot(S_curve_ours2, eps_curve, color='orange', linewidth=2, label=f'Our Theory (Algebraic) $(d=1, k=3)$')
-plt.plot(S_curve_lit, eps_curve, color='red', linewidth=2, label=f'Literature Theory (Logarithmic)')
+plt.plot(S_curve_ours, eps_curve, color='green', linewidth=2, label=f'Viscous Burgers Theory $(d=1, k=0.5)$')
+plt.plot(S_curve_ours2, eps_curve, color='orange', linewidth=2, label=f'Viscous Burgers Theory $(d=1, k=3)$')
+plt.plot(S_curve_lit, eps_curve, color='red', linewidth=2, label=f'Literature Theory')
 
 # Empirical points (scatter) and a light connector for readability
 plt.scatter(params, errors, s=25, color='blue', label='Empirical')
@@ -149,7 +149,7 @@ plt.grid(True, which='both', linestyle='--', alpha=0.4)
 plt.legend()
 
 plt.tight_layout()
-plt.savefig('figures/ibur_res_inv.png', dpi=300)
+# plt.savefig('figures/ibur_res_inv.png', dpi=300)
 
 # %% 5. Zero-Shot Super-Resolution ---------------------------------------------------------------------------
 # 64 Grid Super Resolution
@@ -208,5 +208,5 @@ ax.grid(True, which='both', linestyle='--', alpha=0.4)
 ax.legend()
 
 plt.tight_layout()
-plt.savefig('figures/ibur_zssr.png', dpi=300)
+# plt.savefig('figures/ibur_zssr.png', dpi=300)
 plt.show()

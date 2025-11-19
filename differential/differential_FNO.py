@@ -28,17 +28,17 @@ import statsmodels.api as sm
 verbose = True                                # Verbosity
 eval = True                                   # Model Evaluation
 epochs = 500                                  # Epochs
-res = 2**8                                    # Training Resolution
-res_eval = 2**8                               # Evaluation Resolution
-filename = f"differential_model_{res}_huge" # Filename
+res = 2**9                                    # Training Resolution
+res_eval = 2**9                               # Evaluation Resolution
+filename = f"differential2_model_{res}_tiny" # Filename
 
 batch_size = 4                                # Batch Size
 num_workers = 12                              # Parallelising
 
 # FNO Model
 i, o = 1, 1                                   # Input/Output Dimension
-hidden_channels = 24                          # Dimension of Latent Representation
-n_modes = 36                                  # Number of Fourier Modes
+hidden_channels = 4                           # Dimension of Latent Representation
+n_modes = 8                                   # Number of Fourier Modes
 n_layers = 4                                  # Number of Layers
 d = 2                                         # Spatial Domain
 p = 2                                         # Lp Loss
@@ -66,8 +66,8 @@ else:
 
 # %% 2. Preprocessing ----------------------------------------------------------------------------------------
 # Instantiate HDF5-backed dataset
-data_trainval = Dataset("differential/differential_dataset.h5", res=res)
-data_test     = Dataset("differential/differential_dataset.h5", res=res_eval)
+data_trainval = Dataset("differential/differential2_dataset.h5", res=res)
+data_test     = Dataset("differential/differential2_dataset.h5", res=res_eval)
 
 # Train Val Test Split
 N_samples = len(data_trainval)

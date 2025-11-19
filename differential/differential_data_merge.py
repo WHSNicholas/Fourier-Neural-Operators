@@ -14,7 +14,7 @@ verbose = True
 
 # %% 2. Merging Data -----------------------------------------------------------------------------------------
 # Sample Files
-file_paths = sorted(glob.glob("differential/differential_batches/differential2d_batch*.npz"))
+file_paths = sorted(glob.glob("differential/differential_batches2/differential2d_batch*.npz"))
 if len(file_paths) == 0:
     raise FileNotFoundError("No .npz files found")
 
@@ -25,7 +25,7 @@ batch_size, H, W = batch0.shape
 total_samples = batch_size * len(file_paths)
 
 # Write incrementally to HDF5
-with h5py.File("differentialr_dataset.h5", "w") as f:
+with h5py.File("differential2_dataset.h5", "w") as f:
     dset_in = f.create_dataset("inputs", shape=(total_samples, H, W),
                                dtype=batch0.dtype, chunks=(batch_size, H, W))
     dset_out = f.create_dataset("outputs", shape=(total_samples, H, W),
@@ -42,5 +42,5 @@ with h5py.File("differentialr_dataset.h5", "w") as f:
         idx += batch_size
 
 if verbose:
-    print(f"✅ Merged {len(file_paths)} files into differential_dataset.h5")
+    print(f"✅ Merged {len(file_paths)} files into differential_dataset2.h5")
     print(f"Total samples: {total_samples}, each of shape ({H},{W})")
